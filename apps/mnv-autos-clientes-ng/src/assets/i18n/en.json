@@ -8,15 +8,21 @@
 			"caracteristicas": "Your vehicle's features",
 			"versiones": "Select the engine version",
 			"fecha-primera-matriculacion": "First registration date",
-			"fecha-nacimiento": "Enter your date of birth",
-			"anos-carnet": "Indicate your driving license years",
-			"tiene-aseguradora": "Do you currently have insurance?",
+			"fecha-nacimiento": "Birth date of the youngest driver",
+			"anos-carnet": "How old were you when you got your driving license?",
+			"tiene-aseguradora": "Do you currently have vehicle insurance in your name?",
 			"lista-aseguradoras": "Select your current insurance company",
 			"anos-asegurado": "Years you have been insured",
 			"historial-partes": "Claims and accidents history",
 			"datos-personales": "Enter your personal details",
 			"datos-contacto": "Contact details and signature",
 			"precios": "Your personalized price"
+		},
+		"tooltips": {
+			"fecha-matriculacion": "You can find it on the vehicle technical sheet. Indicate your car's first registration date",
+			"fecha-nacimiento": "Enter the birth date of the youngest driver.",
+			"anos-carnet": "Enter the age the driver had when they got their driving license.",
+			"tiene-aseguradora": "Select whether you currently have vehicle insurance in your name."
 		},
 		"step1": {
 			"loading_texto": "Searching for the vehicle...",

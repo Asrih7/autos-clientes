@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { BalButton } from '@baloise/ds-angular';
 import { InsuranceNavigationService } from '@mnv-autos-clientes/core';
 import { InsuranceStateService } from '@mnv-autos-clientes/data';
@@ -10,16 +10,28 @@ import { InsuranceStateService } from '@mnv-autos-clientes/data';
 	styleUrl: './step-p10-tiene-aseguradora.component.scss'
 })
 export class StepP10TieneAseguradoraComponent {
-	private stateService = inject(InsuranceStateService);
-	private navigation = inject(InsuranceNavigationService);
+	private readonly stateService = inject(InsuranceStateService);
+	private readonly navigation = inject(InsuranceNavigationService);
 
-responderSi() {
-  this.stateService.saveData({ tieneAseguradora: true });
-  this.navigation.next();
-}
+	protected readonly respuestaSeleccionada = signal<boolean | null>(null);
+	protected readonly showError = signal<boolean>(false);
 
-responderNo() {
-  this.stateService.saveData({ tieneAseguradora: false });
-  this.navigation.next();
-}
+	constructor() {
+		this.respuestaSeleccionada.set(this.stateService.formData().tieneAseguradora ?? null);
+	}
+
+	protected seleccionarRespuesta(tieneAseguradora: boolean): void {
+		this.respuestaSeleccionada.set(tieneAseguradora);
+		this.showError.set(false);
+		this.stateService.saveData({ tieneAseguradora });
+	}
+
+	avanzar(): void {
+		if (this.respuestaSeleccionada() === null) {
+			this.showError.set(true);
+			return;
+		}
+
+		this.navigation.next();
+	}
 }

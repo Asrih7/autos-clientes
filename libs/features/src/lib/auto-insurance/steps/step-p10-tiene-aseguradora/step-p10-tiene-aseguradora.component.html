@@ -1,14 +1,27 @@
-<h3 class="bal-heading">P10 - Seguro Actual</h3>
-<p class="bal-text bal-margin-bottom-normal">¿Tiene el vehículo un seguro en vigor con otra compañía actualmente?</p>
+<div class="flex flex-direction-column align-items-center w-full py-xx-large gap-large">
+	<div class="flex justify-content-center gap-normal w-6">
+		<bal-button
+			expanded="true"
+			[color]="respuestaSeleccionada() === true ? 'primary' : 'info'"
+			[outlined]="respuestaSeleccionada() !== true"
+			(click)="seleccionarRespuesta(true)"
+		>
+			Sí
+		</bal-button>
 
-<div class="bal-flex bal-flex-gap-normal" style="display: flex; gap: 1rem;">
-  
-  <bal-button color="primary" (click)="responderSi()">
-    Sí, tengo seguro
-  </bal-button>
+		<bal-button
+			expanded="true"
+			[color]="respuestaSeleccionada() === false ? 'primary' : 'info'"
+			[outlined]="respuestaSeleccionada() !== false"
+			(click)="seleccionarRespuesta(false)"
+		>
+			No
+		</bal-button>
+	</div>
 
-  <bal-button color="secondary" (click)="responderNo()">
-    No, es un coche nuevo / no asegurado
-  </bal-button>
+	@if (showError()) {
+		<span class="text-hint text-small font-weight-bold color-danger">Selecciona una de las opciones para continuar.</span>
+	}
 
+	<bal-button color="primary" (click)="avanzar()">Siguiente</bal-button>
 </div>

@@ -1,12 +1,13 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { InsuranceStateService } from '@mnv-autos-clientes/data';
+import { AutoInsuranceDriverStateService, InsuranceStateService } from '@mnv-autos-clientes/data';
 import { InsuranceNavigationService } from '../navigation/insurance-navigation.service';
 import { WizardStep } from '@mnv-autos-clientes/shared';
 
 export const insuranceFlowGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
 	const router = inject(Router);
 	const stateService = inject(InsuranceStateService);
+	const driverStateService = inject(AutoInsuranceDriverStateService);
 	const navigationService = inject(InsuranceNavigationService);
 
 	const path = route.routeConfig?.path;
@@ -17,7 +18,23 @@ export const insuranceFlowGuard: CanActivateFn = (route: ActivatedRouteSnapshot)
 		return router.createUrlTree(['/autos/busqueda']);
 	}
 
+	if (path !== 'next' && path !== 'busqueda' && !stateService.activeStepsMap().includes(path as WizardStep)) {
+		const fallbackStep = stateService.activeStepsMap().includes(current) ? current : 'busqueda';
+		return router.createUrlTree([`/autos/${fallbackStep}`]);
+	}
+
 	if (path === 'next') {
+		const canContinue =
+			current === 'fecha-nacimiento' || current === 'anos-carnet'
+				? driverStateService.canContinueFromStep(current)
+				: current === 'tiene-aseguradora'
+					? data.tieneAseguradora !== undefined
+					: true;
+
+		if (!canContinue) {
+			return router.createUrlTree([`/autos/${current}`]);
+		}
+
 		let nextStep: WizardStep = current;
 
 		switch (current) {
@@ -49,7 +66,11 @@ export const insuranceFlowGuard: CanActivateFn = (route: ActivatedRouteSnapshot)
 				nextStep = 'tiene-aseguradora';
 				break;
 			case 'tiene-aseguradora':
-				nextStep = data.tieneAseguradora ? 'lista-aseguradoras' : 'datos-personales';
+				if (data.tieneAseguradora) {
+					nextStep = 'lista-aseguradoras';
+				} else {
+					nextStep = 'datos-personales';
+				}
 				break;
 			case 'lista-aseguradoras':
 				nextStep = 'anos-asegurado';

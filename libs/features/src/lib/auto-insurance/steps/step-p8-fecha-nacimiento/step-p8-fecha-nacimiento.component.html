@@ -1,3 +1,37 @@
-<h3 class="bal-heading">Pantalla de Prueba</h3>
-<p class="bal-text bal-margin-bottom-normal">Estás validando la navegación de esta sección.</p>
-<bal-button color="primary" (click)="avanzar()">Siguiente paso</bal-button>
+<div class="flex flex-direction-column align-items-center w-full py-xx-large gap-large">
+	<div class="flex w-6 gap-none">
+		<div class="flex flex-direction-column w-full">
+			<span class="text-small text-grey mb-xx-small">Día</span>
+			<bal-input
+				type="number"
+				placeholder="DD"
+				[value]="day()"
+				(balInput)="onDayInput($event)"
+			></bal-input>
+		</div>
+		<div class="flex flex-direction-column w-full">
+			<span class="text-small text-grey mb-xx-small">Mes</span>
+			<bal-input
+				type="number"
+				placeholder="MM"
+				[value]="month()"
+				(balInput)="onMonthInput($event)"
+			></bal-input>
+		</div>
+		<div class="flex flex-direction-column w-full">
+			<span class="text-small text-grey mb-xx-small">Año</span>
+			<bal-input
+				type="number"
+				placeholder="AAAA"
+				[value]="year()"
+				(balInput)="onYearInput($event)"
+			></bal-input>
+		</div>
+	</div>
+
+	@if (showError() && errorMessage()) {
+		<span class="text-hint text-small font-weight-bold color-danger">{{ errorMessage() }}</span>
+	}
+
+	<bal-button color="primary" (click)="avanzar()">Siguiente</bal-button>
+</div>

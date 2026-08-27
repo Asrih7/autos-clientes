@@ -8,9 +8,9 @@
 			"caracteristicas": "Características de tu vehículo",
 			"versiones": "Selecciona la versión del motor",
 			"fecha-primera-matriculacion": "Fecha de primera matriculación",
-			"fecha-nacimiento": "Introduce tu fecha de nacimiento",
-			"anos-carnet": "Indícanos tus años de carnet",
-			"tiene-aseguradora": "¿Tienes seguro actualmente?",
+			"fecha-nacimiento": "Fecha de nacimiento del conductor más joven",
+			"anos-carnet": "¿Qué edad tenías cuando obtuviste tu carné de conducir?",
+			"tiene-aseguradora": "¿Tienes actualmente un seguro de vehículo a tu nombre?",
 			"lista-aseguradoras": "Selecciona tu compañía actual",
 			"anos-asegurado": "Años que llevas asegurado",
 			"historial-partes": "Historial de siniestros y partes",
@@ -19,7 +19,10 @@
 			"precios": "Tu precio personalizado"
 		},
 		"tooltips": {
-			"fecha-matriculacion": "Puedes encontrarla en la ficha técnica del vehículo. Indica la fecha de primera matriculación de tu coche"
+			"fecha-matriculacion": "Puedes encontrarla en la ficha técnica del vehículo. Indica la fecha de primera matriculación de tu coche",
+			"fecha-nacimiento": "Indica la fecha de nacimiento del conductor más joven.",
+			"anos-carnet": "Indica la edad que tenía el conductor cuando obtuvo el carné de conducir.",
+			"tiene-aseguradora": "Selecciona si tienes actualmente un seguro de vehículo a tu nombre."
 		},
 		"generico": {
 			"loading_texto": "Cargando, por favor espera..."

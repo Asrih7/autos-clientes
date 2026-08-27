@@ -45,7 +45,14 @@
 				</div>
 
 				<div class="w-1 flex align-items-center justify-content-end">
-					<bal-button square="true" color="info" icon="nav-go-right" (click)="navigation.next()"> </bal-button>
+					<bal-button
+						square="true"
+						color="info"
+						icon="nav-go-right"
+						[disabled]="!canAdvanceCurrentStep()"
+						(click)="navigation.next()"
+					>
+					</bal-button>
 				</div>
 			</header>
 		}
