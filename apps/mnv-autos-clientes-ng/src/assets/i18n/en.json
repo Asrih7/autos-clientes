@@ -8,7 +8,7 @@
 			"caracteristicas": "Your vehicle's features",
 			"versiones": "Select the engine version",
 			"fecha-primera-matriculacion": "First registration date",
-			"fecha-nacimiento": "Birth date of the youngest driver",
+			"fecha-nacimiento": "Birth date of the main driver",
 			"anos-carnet": "How old were you when you got your driving license?",
 			"tiene-aseguradora": "Do you currently have vehicle insurance in your name?",
 			"lista-aseguradoras": "Select your current insurance company",
@@ -23,6 +23,25 @@
 			"fecha-nacimiento": "Enter the birth date of the youngest driver.",
 			"anos-carnet": "Enter the age the driver had when they got their driving license.",
 			"tiene-aseguradora": "Select whether you currently have vehicle insurance in your name."
+		},
+		"forms": {
+			"next": "Next",
+			"birthDate": {
+				"day": "Day",
+				"month": "Month",
+				"year": "Year",
+				"incomplete": "Enter your complete birth date.",
+				"invalid": "Enter a valid birth date.",
+				"underage": "The main driver must be at least 18 years old."
+			},
+			"licenseAge": {
+				"birthDateRequired": "Enter a valid birth date first.",
+				"invalid": "The licence issue date must be before today."
+			},
+			"insurance": {
+				"yes": "Yes",
+				"no": "No"
+			}
 		},
 		"step1": {
 			"loading_texto": "Searching for the vehicle...",

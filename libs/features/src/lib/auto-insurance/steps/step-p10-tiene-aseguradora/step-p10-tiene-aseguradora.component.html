@@ -1,27 +1,22 @@
-<div class="flex flex-direction-column align-items-center w-full py-xx-large gap-large">
+<div class="flex flex-direction-column align-items-center justify-content-center w-full py-xx-large gap-large" *transloco="let t">
 	<div class="flex justify-content-center gap-normal w-6">
 		<bal-button
-			expanded="true"
+			[expanded]="true"
 			[color]="respuestaSeleccionada() === true ? 'primary' : 'info'"
 			[outlined]="respuestaSeleccionada() !== true"
 			(click)="seleccionarRespuesta(true)"
 		>
-			Sí
+			{{ t('tarificacion.forms.insurance.yes') }}
 		</bal-button>
 
 		<bal-button
-			expanded="true"
+			[expanded]="true"
 			[color]="respuestaSeleccionada() === false ? 'primary' : 'info'"
 			[outlined]="respuestaSeleccionada() !== false"
 			(click)="seleccionarRespuesta(false)"
 		>
-			No
+			{{ t('tarificacion.forms.insurance.no') }}
 		</bal-button>
 	</div>
 
-	@if (showError()) {
-		<span class="text-hint text-small font-weight-bold color-danger">Selecciona una de las opciones para continuar.</span>
-	}
-
-	<bal-button color="primary" (click)="avanzar()">Siguiente</bal-button>
 </div>

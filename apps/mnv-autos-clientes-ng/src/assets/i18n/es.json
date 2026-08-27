@@ -8,7 +8,7 @@
 			"caracteristicas": "Características de tu vehículo",
 			"versiones": "Selecciona la versión del motor",
 			"fecha-primera-matriculacion": "Fecha de primera matriculación",
-			"fecha-nacimiento": "Fecha de nacimiento del conductor más joven",
+			"fecha-nacimiento": "Fecha de nacimiento del conductor principal",
 			"anos-carnet": "¿Qué edad tenías cuando obtuviste tu carné de conducir?",
 			"tiene-aseguradora": "¿Tienes actualmente un seguro de vehículo a tu nombre?",
 			"lista-aseguradoras": "Selecciona tu compañía actual",
@@ -23,6 +23,25 @@
 			"fecha-nacimiento": "Indica la fecha de nacimiento del conductor más joven.",
 			"anos-carnet": "Indica la edad que tenía el conductor cuando obtuvo el carné de conducir.",
 			"tiene-aseguradora": "Selecciona si tienes actualmente un seguro de vehículo a tu nombre."
+		},
+		"forms": {
+			"next": "Siguiente",
+			"birthDate": {
+				"day": "Día",
+				"month": "Mes",
+				"year": "Año",
+				"incomplete": "Introduce la fecha de nacimiento completa.",
+				"invalid": "Introduce una fecha de nacimiento válida.",
+				"underage": "El conductor principal debe ser mayor de 18 años."
+			},
+			"licenseAge": {
+				"birthDateRequired": "Introduce primero una fecha de nacimiento válida.",
+				"invalid": "La fecha de obtención del carné debe ser anterior a la fecha actual."
+			},
+			"insurance": {
+				"yes": "Sí",
+				"no": "No"
+			}
 		},
 		"generico": {
 			"loading_texto": "Cargando, por favor espera..."

@@ -1,11 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { BalButton, BalInput, parseCustomEvent } from '@baloise/ds-angular';
+import { BalInput, parseCustomEvent } from '@baloise/ds-angular';
+import { TranslocoDirective } from '@jsverse/transloco';
 import { InsuranceNavigationService } from '@mnv-autos-clientes/core';
 import { AutoInsuranceDriverStateService } from '@mnv-autos-clientes/data';
 
 @Component({
 	selector: 'lib-step-p8-fecha-nacimiento',
-	imports: [BalButton, BalInput],
+	imports: [BalInput, TranslocoDirective],
 	templateUrl: './step-p8-fecha-nacimiento.component.html',
 	styleUrl: './step-p8-fecha-nacimiento.component.scss'
 })
@@ -21,13 +22,13 @@ export class StepP8FechaNacimientoComponent {
 	protected readonly errorMessage = computed(() => {
 		const data = this.getFormData();
 		if (!this.stateService.isFechaNacimientoCompleta(data)) {
-			return 'Introduce la fecha de nacimiento completa.';
+			return 'tarificacion.forms.birthDate.incomplete';
 		}
 		if (!this.stateService.getFechaNacimiento(data)) {
-			return 'Introduce una fecha de nacimiento válida.';
+			return 'tarificacion.forms.birthDate.invalid';
 		}
 		if (!this.stateService.isFechaNacimientoValida(data)) {
-			return 'El conductor más joven debe ser mayor de 18 años.';
+			return 'tarificacion.forms.birthDate.underage';
 		}
 
 		return null;
@@ -53,18 +54,22 @@ export class StepP8FechaNacimientoComponent {
 	protected onYearInput(event: Event): void {
 		this.year.set(this.getNumericValue(event).slice(0, 4));
 		this.persistValue();
-	}
-
-	avanzar() {
-		this.showError.set(true);
-		this.persistValue();
-		if (!this.stateService.isFechaNacimientoValida(this.getFormData())) return;
-
-		this.navigation.next();
+		this.advanceWhenDateIsValid();
 	}
 
 	private persistValue(): void {
 		this.stateService.saveData(this.getFormData());
+	}
+
+	private advanceWhenDateIsValid(): void {
+		if (this.year().length !== 4) return;
+
+		if (!this.stateService.isFechaNacimientoValida(this.getFormData())) {
+			this.showError.set(true);
+			return;
+		}
+
+		this.navigation.next();
 	}
 
 	private getFormData() {
