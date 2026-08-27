@@ -1,0 +1,6 @@
+@Library('jenkins-pipelines') _
+angularDeployOcpPipeline([
+    area: 'mnv',
+    projectName:'mnv-autos-clientes-ng',
+    repoArgo: 'gitlab.caser.local/desarrollo-mediacion/comun/portal-mediador/angular/mnv-autos-clientes-ng-ocp-config.git'
+])

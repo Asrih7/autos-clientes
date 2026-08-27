@@ -1,0 +1,7 @@
+@Library('jenkins-pipelines') _
+angularBuildOcpPipeline([
+    area: 'mnv',
+    projectName: 'mnv-autos-clientes-ng',
+    compileDir: 'dist/repository',
+    activeTest: true
+])

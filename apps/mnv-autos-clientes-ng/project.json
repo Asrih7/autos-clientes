@@ -1,0 +1,108 @@
+{
+	"name": "mnv-autos-clientes-ng",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"prefix": "app",
+	"sourceRoot": "apps/mnv-autos-clientes-ng/src",
+	"tags": ["scope:app"],
+	"targets": {
+		"build": {
+			"executor": "@angular/build:application",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": {
+					"base": "dist/repository",
+					"browser": "."
+				},
+				"browser": "apps/mnv-autos-clientes-ng/src/main.ts",
+				"tsConfig": "apps/mnv-autos-clientes-ng/tsconfig.app.json",
+				"inlineStyleLanguage": "scss",
+				"assets": [
+					{
+						"glob": "**/*",
+						"input": "apps/mnv-autos-clientes-ng/public"
+					},
+					{
+						"glob": "**/*",
+						"input": "apps/mnv-autos-clientes-ng/src/assets/",
+						"output": "assets"
+					},
+					{
+						"glob": "**/*",
+						"input": "libs/shared/src/lib/assets/images/marcas",
+						"output": "assets/images/marcas"
+					}
+				],
+
+				"styles": ["apps/mnv-autos-clientes-ng/src/styles.scss"]
+			},
+			"configurations": {
+				"docker": {
+					"fileReplacements": [
+						{
+							"replace": "apps/mnv-autos-clientes-ng/src/environments/environment.ts",
+							"with": "apps/mnv-autos-clientes-ng/src/environments/environment.docker.ts"
+						}
+					],
+					"optimization": {
+						"scripts": true,
+						"styles": true,
+						"fonts": false
+					},
+					"outputHashing": "all",
+					"sourceMap": true,
+					"namedChunks": false,
+					"aot": true,
+					"extractLicenses": false,
+					"budgets": [
+						{
+							"type": "initial",
+							"maximumWarning": "2mb",
+							"maximumError": "5mb"
+						},
+						{
+							"type": "anyComponentStyle",
+							"maximumWarning": "6kb",
+							"maximumError": "10kb"
+						}
+					]
+				},
+				"development": {
+					"optimization": false,
+					"extractLicenses": false,
+					"sourceMap": true
+				}
+			},
+			"defaultConfiguration": "production"
+		},
+		"serve": {
+			"continuous": true,
+			"executor": "@angular/build:dev-server",
+			"options": {
+        		"proxyConfig": "apps/mnv-autos-clientes-ng/proxy.config.json"
+      		},
+			"configurations": {
+				"production": {
+					"buildTarget": "mnv-autos-clientes-ng:build:production"
+				},
+				"development": {
+					"buildTarget": "mnv-autos-clientes-ng:build:development"
+				}
+			},
+			"defaultConfiguration": "development"
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		},
+		"serve-static": {
+			"continuous": true,
+			"executor": "@nx/web:file-server",
+			"options": {
+				"buildTarget": "mnv-autos-clientes-ng:build",
+				"port": 4200,
+				"staticFilePath": "dist/repository",
+				"spa": true
+			}
+		}
+	}
+}

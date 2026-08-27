@@ -1,0 +1,1 @@
+npx nx run-many -t test --projects=tag:lib && npx nx run-many -t build --projects=tag:lib

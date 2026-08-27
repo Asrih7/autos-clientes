@@ -1,0 +1,59 @@
+<div class="h-screen flex flex-direction-column position-relative" *transloco="let t">
+	
+	@if (isLoading()) {
+		<div class="flex justify-content-center align-items-center bg-transparent fixed w-screen h-screen pointer-events-auto z-index-modal" 
+			 style="top: 0; left: 0;">
+			
+			<bal-card class="shadow-normal border-none w-full mx-medium my-none" style="max-width: 400px;">
+				<bal-card-content class="flex flex-direction-column align-items-center justify-content-center py-x-large gap-normal">
+					<bal-spinner color="blue" size="large"></bal-spinner>
+					<bal-heading level="h5" space="all" class="text-center font-weight-bold">
+						{{ t('tarificacion.generico.loading_texto') }}
+					</bal-heading>
+				</bal-card-content>
+			</bal-card>
+
+		</div>
+	}
+
+	<div class="w-full position-relative mt-large">
+		<bal-progress-bar background="grey" [value]="progressPercentage()"></bal-progress-bar>
+		<bal-tag-group class="justify-content-end mt-small">
+			<bal-tag size="small" color="primary">Tu precio</bal-tag>
+		</bal-tag-group>
+	</div>
+
+	<div class="flex-1 flex flex-direction-column pt-large">
+		@if (navigation.currentStep() !== 'busqueda') {
+			<header class="flex flex-direction-row align-items-center justify-between pb-normal border-bottom-grey">
+				<div class="w-1 flex align-items-center">
+					@if (navigation.canGoBack()) {
+						<bal-button square="true" color="info" icon="nav-go-left" (click)="navigation.back()"> </bal-button>
+					}
+				</div>
+
+				<div class="w-10 flex align-items-center justify-content-center gap-small">
+					<h3 class="title m-0 text-center">
+						{{ t('tarificacion.steps.' + navigation.currentStep()) }}
+					</h3>
+					@if (showStepTooltip()) {
+						<bal-icon name="info-circle" id="tooltip-message" size="medium"></bal-icon>
+						<bal-tooltip reference="tooltip-message">
+							{{ t(tooltipText() || '') }}
+						</bal-tooltip>
+					}
+				</div>
+
+				<div class="w-1 flex align-items-center justify-content-end">
+					<bal-button square="true" color="info" icon="nav-go-right" (click)="navigation.next()"> </bal-button>
+				</div>
+			</header>
+		}
+
+		<main class="flex flex-direction-row" 
+			  [class.opacity-50]="isLoading()"
+			  [style.pointer-events]="isLoading() ? 'none' : 'auto'">
+			<router-outlet></router-outlet>
+		</main>
+	</div>
+</div>

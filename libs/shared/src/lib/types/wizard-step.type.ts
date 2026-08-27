@@ -1,0 +1,17 @@
+export type WizardStep =
+	| 'busqueda'
+	| 'marca'
+	| 'modelo'
+	| 'fecha-matriculacion'
+	| 'caracteristicas'
+	| 'versiones'
+	| 'fecha-primera-matriculacion'
+	| 'fecha-nacimiento'
+	| 'anos-carnet'
+	| 'tiene-aseguradora'
+	| 'lista-aseguradoras'
+	| 'anos-asegurado'
+	| 'historial-partes'
+	| 'datos-personales'
+	| 'datos-contacto'
+	| 'precios';
