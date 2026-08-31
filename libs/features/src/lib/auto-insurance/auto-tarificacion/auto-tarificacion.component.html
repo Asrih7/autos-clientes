@@ -1,4 +1,4 @@
-<div class="h-screen flex flex-direction-column position-relative" *transloco="let t">
+<div class="h-screen flex flex-direction-column position-relative" *transloco="let t; prefix: 'tarificacion'">
 	
 	@if (isLoading()) {
 		<div class="flex justify-content-center align-items-center bg-transparent fixed w-screen h-screen pointer-events-auto z-index-modal" 
@@ -8,7 +8,7 @@
 				<bal-card-content class="flex flex-direction-column align-items-center justify-content-center py-x-large gap-normal">
 					<bal-spinner color="blue" size="large"></bal-spinner>
 					<bal-heading level="h5" space="all" class="text-center font-weight-bold">
-						{{ t('tarificacion.generico.loading_texto') }}
+						{{ t('generico.loading_texto') }}
 					</bal-heading>
 				</bal-card-content>
 			</bal-card>
@@ -19,39 +19,39 @@
 	<div class="w-full position-relative mt-large">
 		<bal-progress-bar background="grey" [value]="progressPercentage()"></bal-progress-bar>
 		<bal-tag-group class="justify-content-end mt-small">
-			<bal-tag size="small" color="primary">Tu precio</bal-tag>
+			<bal-tag size="small" color="primary">{{ t('tag_precio') }}</bal-tag>
 		</bal-tag-group>
 	</div>
 
 	<div class="flex-1 flex flex-direction-column pt-large">
 		@if (navigation.currentStep() !== 'busqueda') {
-			<header class="flex flex-direction-row align-items-center justify-between pb-normal border-bottom-grey">
+			<header class="flex flex-direction-row align-items-center justify-content-between pb-normal border-bottom-grey">
 				<div class="w-1 flex align-items-center">
 					@if (navigation.canGoBack()) {
 						<bal-button square="true" color="info" icon="nav-go-left" (click)="navigation.back()"> </bal-button>
 					}
 				</div>
 
-				<div class="w-10 flex align-items-center justify-content-center gap-small">
-					<h3 class="title m-0 text-center">
-						{{ t('tarificacion.steps.' + navigation.currentStep()) }}
+				<div class="w-10 flex align-items-center justify-content-start gap-small">
+					<h3 class="title text-xx-large m-0">
+						{{ t('steps.' + navigation.currentStep()) }}
 					</h3>
-					@if (showStepTooltip()) {
+					@if (tooltipText(); as tooltip) {
 						<bal-icon name="info-circle" id="tooltip-message" size="medium"></bal-icon>
 						<bal-tooltip reference="tooltip-message">
-							{{ t(tooltipText() || '') }}
+							{{ t(tooltip) }}
 						</bal-tooltip>
 					}
 				</div>
 
 				<div class="w-1 flex align-items-center justify-content-end">
-					<bal-button
-						square="true"
-						color="info"
-						icon="nav-go-right"
-						[disabled]="!canAdvanceCurrentStep()"
+					<bal-button 
+						square="true" 
+						color="info" 
+						icon="nav-go-right" 
+						[disabled]="!navigation.canGoForward()" 
 						(click)="navigation.next()"
-					>
+					> 
 					</bal-button>
 				</div>
 			</header>

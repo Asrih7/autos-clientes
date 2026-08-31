@@ -1,12 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { BalButton, BalInput, parseCustomEvent } from '@baloise/ds-angular';
-import { TranslocoDirective } from '@jsverse/transloco';
 import { InsuranceNavigationService } from '@mnv-autos-clientes/core';
 import { AutoInsuranceDriverStateService } from '@mnv-autos-clientes/data';
 
 @Component({
 	selector: 'lib-step-p9-anos-carnet',
-	imports: [BalButton, BalInput, TranslocoDirective],
+	host: { class: 'w-full' },
+	imports: [BalButton, BalInput],
 	templateUrl: './step-p9-anos-carnet.component.html',
 	styleUrl: './step-p9-anos-carnet.component.scss'
 })
@@ -19,10 +19,10 @@ export class StepP9AnosCarnetComponent {
 
 	protected readonly errorMessage = computed(() => {
 		if (!this.stateService.getFechaNacimiento()) {
-			return 'tarificacion.forms.licenseAge.birthDateRequired';
+			return 'Introduce primero una fecha de nacimiento válida.';
 		}
 		if (!this.stateService.isEdadObtencionCarnetValida()) {
-			return 'tarificacion.forms.licenseAge.invalid';
+			return 'La fecha de obtención del carné debe ser anterior a la fecha actual.';
 		}
 
 		return null;
@@ -31,7 +31,7 @@ export class StepP9AnosCarnetComponent {
 	constructor() {
 		const edadGuardada = this.stateService.formData().edadObtencionCarnet;
 		if (edadGuardada !== undefined) {
-			this.edadCarnet.set(edadGuardada);
+			this.edadCarnet.set(Math.max(18, edadGuardada));
 		} else {
 			this.persistValue();
 		}
@@ -46,12 +46,12 @@ export class StepP9AnosCarnetComponent {
 		}
 
 		const numericValue = Number(String(parsedEvent).replace(/\D/g, ''));
-		this.edadCarnet.set(Number.isNaN(numericValue) ? 0 : numericValue);
+		this.edadCarnet.set(Number.isNaN(numericValue) ? 0 : Math.max(18, numericValue));
 		this.persistValue();
 	}
 
 	protected disminuirEdad(): void {
-		this.edadCarnet.update((edad) => Math.max(0, edad - 1));
+		this.edadCarnet.update((edad) => Math.max(18, edad - 1));
 		this.persistValue();
 	}
 

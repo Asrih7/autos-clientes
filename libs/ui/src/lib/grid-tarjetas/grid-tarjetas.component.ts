@@ -4,8 +4,8 @@ import { BalCard, BalCardContent } from '@baloise/ds-angular';
 export interface ElementoGrid {
 	id: string;
 	nombre: string;
-	logoUrl: string;
-	orden: number
+	logoUrl?: string;
+	orden?: number
 }
 
 @Component({

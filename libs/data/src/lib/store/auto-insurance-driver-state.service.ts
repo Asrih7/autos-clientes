@@ -55,13 +55,18 @@ export class AutoInsuranceDriverStateService {
 		const fechaMayorEdad = new Date(fechaNacimiento);
 		fechaMayorEdad.setFullYear(fechaMayorEdad.getFullYear() + 18);
 
-		return fechaMayorEdad <= this.getToday();
+		return fechaNacimiento >= this.getMinimumFechaNacimiento() && fechaMayorEdad <= this.getToday();
+	}
+
+	getMinimumFechaNacimiento(): Date {
+		const today = this.getToday();
+		return new Date(today.getFullYear() - 99, today.getMonth(), today.getDate());
 	}
 
 	isEdadObtencionCarnetValida(data = this._formData()): boolean {
 		const fechaNacimiento = this.getFechaNacimiento(data);
 		const edadObtencionCarnet = data.edadObtencionCarnet;
-		if (!fechaNacimiento || edadObtencionCarnet === undefined || edadObtencionCarnet < 0) return false;
+		if (!fechaNacimiento || edadObtencionCarnet === undefined || edadObtencionCarnet < 18) return false;
 
 		const fechaObtencionCarnet = new Date(fechaNacimiento);
 		fechaObtencionCarnet.setFullYear(fechaObtencionCarnet.getFullYear() + edadObtencionCarnet);

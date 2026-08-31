@@ -3,7 +3,7 @@ import { BalSelect, BalSelectOption } from '@baloise/ds-angular';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { InsuranceNavigationService } from '@mnv-autos-clientes/core';
 import { Marca, P2MarcasService } from '@mnv-autos-clientes/data';
-import { GridTarjetasComponent } from '@mnv-autos-clientes/ui';
+import { ElementoGrid, GridTarjetasComponent } from '@mnv-autos-clientes/ui';
 
 @Component({
 	selector: 'lib-step-p2-marcas',
@@ -37,7 +37,8 @@ export class StepP2MarcasComponent implements OnInit {
 		this.marcasService.cargarMarcas();
 	}
 
-	protected onCardClick(marca: Marca): void {
+	protected onCardClick(elemento: ElementoGrid): void {
+		const marca: Marca = { ...elemento, logoUrl: elemento.logoUrl ?? '', orden: elemento.orden ?? 0 };
 		this.marcasService.seleccionarMarca(marca);
 	}
 

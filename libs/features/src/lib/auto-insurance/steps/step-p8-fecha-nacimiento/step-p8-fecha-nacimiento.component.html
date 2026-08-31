@@ -1,36 +1,52 @@
-<div class="flex flex-direction-column align-items-center justify-content-center w-full py-xx-large gap-large" *transloco="let t">
-	<div class="flex justify-content-center w-6 gap-none">
-		<div class="flex flex-direction-column w-full">
-			<span class="text-small text-grey mb-xx-small">{{ t('tarificacion.forms.birthDate.day') }}</span>
-			<bal-input
-				type="number"
-				placeholder="DD"
-				[value]="day()"
-				(balInput)="onDayInput($event)"
-			></bal-input>
+<div class="flex flex-direction-column align-items-center justify-content-center w-full py-xx-large gap-large">
+	<div class="flex flex-direction-column w-max gap-normal">
+		<div class="flex justify-content-center w-max gap-none">
+			<div class="flex flex-direction-column w-14rem">
+				<span class="text-small text-grey mb-xx-small">Día</span>
+				<bal-input
+					class="w-full"
+					#dayInput
+					autofocus="true"
+					type="text"
+					inputmode="numeric"
+					maxlength="2"
+					placeholder="DD"
+					[value]="day()"
+					(balInput)="onDayInput($event)"
+				></bal-input>
+			</div>
+			<div class="flex flex-direction-column w-14rem">
+				<span class="text-small text-grey mb-xx-small">Mes</span>
+				<bal-input
+					class="w-full"
+					#monthInput
+					type="text"
+					inputmode="numeric"
+					maxlength="2"
+					placeholder="MM"
+					[value]="month()"
+					(balInput)="onMonthInput($event)"
+				></bal-input>
+			</div>
+			<div class="flex flex-direction-column w-14rem">
+				<span class="text-small text-grey mb-xx-small">Año</span>
+				<bal-input
+					class="w-full"
+					#yearInput
+					type="text"
+					inputmode="numeric"
+					maxlength="4"
+					placeholder="AAAA"
+					[value]="year()"
+					(balInput)="onYearInput($event)"
+				></bal-input>
+			</div>
 		</div>
-		<div class="flex flex-direction-column w-full">
-			<span class="text-small text-grey mb-xx-small">{{ t('tarificacion.forms.birthDate.month') }}</span>
-			<bal-input
-				type="number"
-				placeholder="MM"
-				[value]="month()"
-				(balInput)="onMonthInput($event)"
-			></bal-input>
-		</div>
-		<div class="flex flex-direction-column w-full">
-			<span class="text-small text-grey mb-xx-small">{{ t('tarificacion.forms.birthDate.year') }}</span>
-			<bal-input
-				type="number"
-				placeholder="AAAA"
-				[value]="year()"
-				(balInput)="onYearInput($event)"
-			></bal-input>
-		</div>
+
+		@if (showError() && errorMessage()) {
+			<span class="text-hint text-small font-weight-bold color-danger">{{ errorMessage() }}</span>
+		} @else {
+			<span class="text-hint text-small text-grey">* La fecha mínima debe ser {{ minimumBirthDate() }}</span>
+		}
 	</div>
-
-	@if (showError() && errorMessage()) {
-		<span class="text-hint text-small font-weight-bold color-danger">{{ t(errorMessage()!) }}</span>
-	}
-
 </div>

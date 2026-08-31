@@ -9,8 +9,10 @@
 				(click)="onCardClick(item)"
 			>
 				<bal-card-content class="flex flex-direction-column align-items-center justify-content-center gap-small">
-					<img [src]="item.logoUrl" [alt]="item.nombre" class="h-3rem" style="object-fit: contain" />
-					<span class="text-small font-weight-bold color-blue-dark text-uppercase mt-small">
+					@if (item.logoUrl) {
+						<img [src]="item.logoUrl" [alt]="item.nombre" class="h-3rem" style="object-fit: contain" />
+					}
+					<span class="text-medium font-weight-bold color-blue-dark text-uppercase mt-small">
 						{{ item.nombre }}
 					</span>
 				</bal-card-content>

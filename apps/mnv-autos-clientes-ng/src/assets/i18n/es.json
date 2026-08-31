@@ -5,7 +5,7 @@
 			"marca": "Selecciona la marca de tu vehículo",
 			"modelo": "Indícanos el modelo",
 			"fecha-matriculacion": "¿Cuándo fue matriculado por primera vez? (Opcional)",
-			"caracteristicas": "Características de tu vehículo",
+			"caracteristicas": "Datos de tu vehículo",
 			"versiones": "Selecciona la versión del motor",
 			"fecha-primera-matriculacion": "Fecha de primera matriculación",
 			"fecha-nacimiento": "Fecha de nacimiento del conductor principal",
@@ -20,7 +20,7 @@
 		},
 		"tooltips": {
 			"fecha-matriculacion": "Puedes encontrarla en la ficha técnica del vehículo. Indica la fecha de primera matriculación de tu coche",
-			"fecha-nacimiento": "Indica la fecha de nacimiento del conductor más joven.",
+			"fecha-nacimiento": "Indica la fecha de nacimiento del conductor principal.",
 			"anos-carnet": "Indica la edad que tenía el conductor cuando obtuvo el carné de conducir.",
 			"tiene-aseguradora": "Selecciona si tienes actualmente un seguro de vehículo a tu nombre."
 		},
@@ -46,6 +46,7 @@
 		"generico": {
 			"loading_texto": "Cargando, por favor espera..."
 		},
+		"tag_precio": "Tu precio",
 		"step1": {
 			"loading_texto": "Buscando el vehículo...",
 			"titulo": "Calcula el precio de tu seguro de coche",
@@ -126,6 +127,14 @@
 			"titulo": "Selecciona la marca de tu vehículo",
 			"label_otras_marcas": "Otras marcas:",
 			"placeholder_select": "Selecciona una marca..."
+		},
+		"step3": {
+			"otros_modelos": "Otros modelos"
+		},
+		"step4": {
+			"titulo-combustible": "Elige el tipo de combustible",
+			"titulo-puertas": "Elige el número de puertas",
+			"titulo-asientos": "Elige el número de asientos"
 		}
 	}
 }

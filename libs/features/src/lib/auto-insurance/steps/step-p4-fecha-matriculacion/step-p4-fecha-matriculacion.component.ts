@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { BalButton, BalDropdown, BalOption } from '@baloise/ds-angular';
 import { InsuranceNavigationService } from '@mnv-autos-clientes/core';
 import { InsuranceStateService } from '@mnv-autos-clientes/data';

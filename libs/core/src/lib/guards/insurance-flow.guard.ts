@@ -68,8 +68,10 @@ export const insuranceFlowGuard: CanActivateFn = (route: ActivatedRouteSnapshot)
 			case 'tiene-aseguradora':
 				if (data.tieneAseguradora) {
 					nextStep = 'lista-aseguradoras';
-				} else {
+				} else if (driverStateService.formData().datosPersonalesActivos) {
 					nextStep = 'datos-personales';
+				} else {
+					nextStep = 'precios';
 				}
 				break;
 			case 'lista-aseguradoras':

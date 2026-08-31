@@ -1,17 +1,15 @@
-<div class="flex flex-direction-column align-items-center justify-content-center w-full py-xx-large gap-large" *transloco="let t">
-	<div class="flex align-items-center justify-content-center gap-large w-6">
+<div class="flex flex-direction-column align-items-center justify-content-center w-full py-xx-large gap-large">
+	<div class="flex align-items-center justify-content-center gap-large w-max">
 		<bal-button color="info" square="true" (click)="disminuirEdad()">-</bal-button>
-		<bal-input
-			type="number"
-			[value]="edadCarnet()"
-			(balInput)="onAgeInput($event)"
-		></bal-input>
+		<div class="w-18rem">
+			<bal-input class="w-full" type="number" [value]="edadCarnet()" (balInput)="onAgeInput($event)"></bal-input>
+		</div>
 		<bal-button color="info" square="true" (click)="aumentarEdad()">+</bal-button>
 	</div>
 
 	@if (showError() && errorMessage()) {
-		<span class="text-hint text-small font-weight-bold color-danger">{{ t(errorMessage()!) }}</span>
+		<span class="text-hint text-small font-weight-bold color-danger">{{ errorMessage() }}</span>
 	}
 
-	<bal-button color="primary" (click)="avanzar()">{{ t('tarificacion.forms.next') }}</bal-button>
+	<bal-button color="primary" (click)="avanzar()">Siguiente</bal-button>
 </div>

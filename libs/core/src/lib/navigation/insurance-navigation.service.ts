@@ -1,10 +1,13 @@
 import { Injectable, computed, signal, inject, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { WizardStep } from '@mnv-autos-clientes/shared';
+import { AutoInsuranceDriverStateService, InsuranceStateService } from '@mnv-autos-clientes/data';
 
 @Injectable({ providedIn: 'root' })
 export class InsuranceNavigationService {
 	private router = inject(Router);
+	private stateService = inject(InsuranceStateService);
+	private driverStateService = inject(AutoInsuranceDriverStateService);
 	private readonly NAV_STORAGE_KEY = 'auto_insurance_navigation_draft';
 
 	private _currentStep = signal<WizardStep>('busqueda');
@@ -13,6 +16,37 @@ export class InsuranceNavigationService {
 	currentStep = computed(() => this._currentStep());
 	canGoBack = computed(() => this._navigationHistory().length > 0);
 	_navigationHistoryRaw = computed(() => this._navigationHistory());
+
+	readonly canGoForward = computed<boolean>(() => {
+		const step = this._currentStep();
+		const formData = this.stateService.formData();
+
+		switch (step) {
+			case 'busqueda':
+				return true;
+
+			case 'marca':
+				return !!formData?.marcaSeleccionada;
+
+			case 'modelo':
+				return !!formData?.modeloSeleccionado;
+
+			case 'caracteristicas':
+				return !!formData?.combustible
+					&& !!formData?.numeroPuertas
+					&& !!formData?.numeroPlazas;
+
+			case 'fecha-nacimiento':
+			case 'anos-carnet':
+				return this.driverStateService.canContinueFromStep(step);
+
+			case 'tiene-aseguradora':
+				return formData?.tieneAseguradora !== undefined;
+
+			default:
+				return true;
+		}
+	});
 
 	constructor() {
 		this.loadNavigationFromStorage();

@@ -3,16 +3,20 @@ import { WizardStep } from '@mnv-autos-clientes/shared';
 import { AutoInsuranceApiService } from '../services/auto-insurance-api.service';
 import { BusquedaVehiculo } from '../models/busqueda-vehiculo.model';
 import { Marca } from '../models/marca.model';
+import { Modelo } from '../models/modelo.model';
 
 export interface AutoInsuranceData {
 	tipoFlujo?: 'MATRICULA' | 'MANUAL';
 	vehiculo?: BusquedaVehiculo;
 	marcaSeleccionada?: Marca;
-	modeloId?: string;
+	modeloSeleccionado?: Modelo;
 	versionId?: string;
 	tieneAseguradora?: boolean;
 	mesPrimerMatricula?: string;
 	anioPrimerMatricula?: string;
+	combustible?: string;
+	numeroPuertas?: string;
+	numeroPlazas?: string;
 }
 
 @Injectable({ providedIn: 'root' })

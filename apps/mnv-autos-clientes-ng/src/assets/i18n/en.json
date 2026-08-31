@@ -20,7 +20,7 @@
 		},
 		"tooltips": {
 			"fecha-matriculacion": "You can find it on the vehicle technical sheet. Indicate your car's first registration date",
-			"fecha-nacimiento": "Enter the birth date of the youngest driver.",
+			"fecha-nacimiento": "Enter the birth date of the main driver.",
 			"anos-carnet": "Enter the age the driver had when they got their driving license.",
 			"tiene-aseguradora": "Select whether you currently have vehicle insurance in your name."
 		},

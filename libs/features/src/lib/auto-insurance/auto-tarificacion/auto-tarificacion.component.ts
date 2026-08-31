@@ -40,20 +40,16 @@ export class AutoTarificacionComponent {
 		return currentStep !== 'tiene-aseguradora' || this.stateService.formData().tieneAseguradora !== undefined;
 	});
 
-	showStepTooltip = computed(
-		() => ['fecha-matriculacion', 'fecha-nacimiento', 'anos-carnet', 'tiene-aseguradora'].includes(this.navigation.currentStep())
-	);
-
 	tooltipText = computed(() => {
 		switch (this.navigation.currentStep()) {
 			case 'fecha-matriculacion':
-				return 'tarificacion.tooltips.fecha-matriculacion';
+				return 'tooltips.fecha-matriculacion';
 			case 'fecha-nacimiento':
-				return 'tarificacion.tooltips.fecha-nacimiento';
+				return 'tooltips.fecha-nacimiento';
 			case 'anos-carnet':
-				return 'tarificacion.tooltips.anos-carnet';
+				return 'tooltips.anos-carnet';
 			case 'tiene-aseguradora':
-				return 'tarificacion.tooltips.tiene-aseguradora';
+				return 'tooltips.tiene-aseguradora';
 
 			default:
 				return null;
