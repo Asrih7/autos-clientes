@@ -61,6 +61,7 @@ export class InsuranceNavigationService {
 	}
 
 	next() {
+		this.stateService.completarPaso(this._currentStep());
 		this.router.navigate([`/autos/next`]);
 	}
 

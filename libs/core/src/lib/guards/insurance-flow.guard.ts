@@ -23,6 +23,19 @@ export const insuranceFlowGuard: CanActivateFn = (route: ActivatedRouteSnapshot)
 		return router.createUrlTree([`/autos/${fallbackStep}`]);
 	}
 
+	if (path !== 'next' && path !== 'busqueda') {
+		const requestedStep = path as WizardStep;
+		const activeSteps = stateService.activeStepsMap();
+		const requestedStepIndex = activeSteps.indexOf(requestedStep);
+		const firstIncompletePreviousStep = activeSteps
+			.slice(0, requestedStepIndex)
+			.find((step) => !stateService.esPasoCompletado(step));
+
+		if (firstIncompletePreviousStep) {
+			return router.createUrlTree([`/autos/${firstIncompletePreviousStep}`]);
+		}
+	}
+
 	if (path === 'next') {
 		const canContinue =
 			current === 'fecha-nacimiento' || current === 'anos-carnet'

@@ -31,6 +31,11 @@
 						"glob": "**/*",
 						"input": "libs/shared/src/lib/assets/images/marcas",
 						"output": "assets/images/marcas"
+					},
+					{
+						"glob": "**/*",
+						"input": "libs/shared/src/lib/assets/images/aseguradoras",
+						"output": "assets/images/aseguradoras"
 					}
 				],
 

@@ -3,14 +3,17 @@ import { WizardStep } from '@mnv-autos-clientes/shared';
 import { AutoInsuranceApiService } from '../services/auto-insurance-api.service';
 import { BusquedaVehiculo } from '../models/busqueda-vehiculo.model';
 import { Marca } from '../models/marca.model';
+import { Aseguradora } from '../models/aseguradora.model';
 import { Modelo } from '../models/modelo.model';
 
 export interface AutoInsuranceData {
 	tipoFlujo?: 'MATRICULA' | 'MANUAL';
 	vehiculo?: BusquedaVehiculo;
 	marcaSeleccionada?: Marca;
+	aseguradoraSeleccionada?: Aseguradora;
 	modeloSeleccionado?: Modelo;
 	versionId?: string;
+	pasosCompletados?: WizardStep[];
 	tieneAseguradora?: boolean;
 	mesPrimerMatricula?: string;
 	anioPrimerMatricula?: string;
@@ -56,6 +59,19 @@ export class InsuranceStateService {
 
 	saveData(data: Partial<AutoInsuranceData>) {
 		this._formData.update((current) => ({ ...current, ...data }));
+	}
+
+	completarPaso(step: WizardStep): void {
+		this._formData.update((current) => {
+			const pasosCompletados = current.pasosCompletados ?? [];
+			if (pasosCompletados.includes(step)) return current;
+
+			return { ...current, pasosCompletados: [...pasosCompletados, step] };
+		});
+	}
+
+	esPasoCompletado(step: WizardStep): boolean {
+		return this._formData().pasosCompletados?.includes(step) ?? false;
 	}
 
 	clearAll() {
