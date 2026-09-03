@@ -1,12 +1,20 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { WizardStep } from '@mnv-autos-clientes/shared';
+import {
+	BirthDateParts,
+	getMinimumBirthDate,
+	isBirthDateComplete,
+	isValidBirthDate,
+	isValidDrivingLicenceAge,
+	parseBirthDate,
+	WizardStep
+} from '@mnv-autos-clientes/shared';
 import { AutoInsuranceApiService } from '../services/auto-insurance-api.service';
 import { BusquedaVehiculo } from '../models/busqueda-vehiculo.model';
 import { Marca } from '../models/marca.model';
 import { Aseguradora } from '../models/aseguradora.model';
 import { Modelo } from '../models/modelo.model';
 
-export interface AutoInsuranceData {
+export interface AutoInsuranceData extends BirthDateParts {
 	tipoFlujo?: 'MATRICULA' | 'MANUAL';
 	vehiculo?: BusquedaVehiculo;
 	marcaSeleccionada?: Marca;
@@ -19,11 +27,14 @@ export interface AutoInsuranceData {
 	combustible?: string;
 	numeroPuertas?: string;
 	numeroPlazas?: string;
+	edadObtencionCarnet?: number;
+	datosPersonalesActivos?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class InsuranceStateService {
 	private readonly STORAGE_KEY = 'auto_insurance_wizard_draft';
+	private readonly LEGACY_DRIVER_STORAGE_KEY = 'auto_insurance_driver_wizard_draft';
 	private readonly apiService = inject(AutoInsuranceApiService);
 
 	private _formData = signal<AutoInsuranceData>({});
@@ -60,8 +71,40 @@ export class InsuranceStateService {
 		this._formData.update((current) => ({ ...current, ...data }));
 	}
 
+	canContinueFromStep(step: WizardStep): boolean {
+		const data = this._formData();
+
+		switch (step) {
+			case 'fecha-nacimiento': return this.isFechaNacimientoValida(data);
+			case 'anos-carnet': return this.isEdadObtencionCarnetValida(data);
+			case 'tiene-aseguradora': return data.tieneAseguradora !== undefined;
+			default: return true;
+		}
+	}
+
+	isFechaNacimientoCompleta(data = this._formData()): boolean {
+		return isBirthDateComplete(data);
+	}
+
+	isFechaNacimientoValida(data = this._formData()): boolean {
+		return isValidBirthDate(data);
+	}
+
+	getMinimumFechaNacimiento(): Date {
+		return getMinimumBirthDate();
+	}
+
+	isEdadObtencionCarnetValida(data = this._formData()): boolean {
+		return isValidDrivingLicenceAge(data, data.edadObtencionCarnet);
+	}
+
+	getFechaNacimiento(data = this._formData()): Date | null {
+		return parseBirthDate(data);
+	}
+
 	clearAll() {
 		sessionStorage.removeItem(this.STORAGE_KEY);
+		sessionStorage.removeItem(this.LEGACY_DRIVER_STORAGE_KEY);
 		this._formData.set({});
 		this.apiService.limpiarCache();
 	}
@@ -69,9 +112,12 @@ export class InsuranceStateService {
 	private loadFromStorage() {
 		try {
 			const saved = sessionStorage.getItem(this.STORAGE_KEY);
-			if (saved) {
-				this._formData.set(JSON.parse(saved));
-			}
+			const legacyDriverData = sessionStorage.getItem(this.LEGACY_DRIVER_STORAGE_KEY);
+			const formData = saved ? JSON.parse(saved) : {};
+			const driverData = legacyDriverData ? JSON.parse(legacyDriverData) : {};
+
+			this._formData.set({ ...driverData, ...formData });
+			if (legacyDriverData) sessionStorage.removeItem(this.LEGACY_DRIVER_STORAGE_KEY);
 		} catch (e) {
 			console.error('Error recuperando sesión de datos', e);
 		}

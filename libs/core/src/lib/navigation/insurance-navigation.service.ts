@@ -1,13 +1,12 @@
 import { Injectable, computed, signal, inject, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { WizardStep } from '@mnv-autos-clientes/shared';
-import { AutoInsuranceDriverStateService, InsuranceStateService } from '@mnv-autos-clientes/data';
+import { InsuranceStateService } from '@mnv-autos-clientes/data';
 
 @Injectable({ providedIn: 'root' })
 export class InsuranceNavigationService {
 	private router = inject(Router);
 	private stateService = inject(InsuranceStateService);
-	private driverStateService = inject(AutoInsuranceDriverStateService);
 	private readonly NAV_STORAGE_KEY = 'auto_insurance_navigation_draft';
 
 	private _currentStep = signal<WizardStep>('busqueda');
@@ -38,7 +37,7 @@ export class InsuranceNavigationService {
 
 			case 'fecha-nacimiento':
 			case 'anos-carnet':
-				return this.driverStateService.canContinueFromStep(step);
+				return this.stateService.canContinueFromStep(step);
 
 			case 'tiene-aseguradora':
 				return formData?.tieneAseguradora !== undefined;

@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, computed, inject, signal, ViewChild } from '@angular/core';
 import { BalInput, parseCustomEvent } from '@baloise/ds-angular';
 import { InsuranceNavigationService } from '@mnv-autos-clientes/core';
-import { AutoInsuranceDriverStateService } from '@mnv-autos-clientes/data';
+import { InsuranceStateService } from '@mnv-autos-clientes/data';
+import { formatDate, getNumericValue } from '@mnv-autos-clientes/shared';
 
 @Component({
 	selector: 'lib-step-p8-fecha-nacimiento',
@@ -11,14 +12,14 @@ import { AutoInsuranceDriverStateService } from '@mnv-autos-clientes/data';
 	styleUrl: './step-p8-fecha-nacimiento.component.scss'
 })
 export class StepP8FechaNacimientoComponent implements AfterViewInit {
-	private readonly stateService = inject(AutoInsuranceDriverStateService);
+	private readonly stateService = inject(InsuranceStateService);
 	private readonly navigation = inject(InsuranceNavigationService);
 
 	protected readonly day = signal<string>('');
 	protected readonly month = signal<string>('');
 	protected readonly year = signal<string>('');
 	protected readonly showError = signal<boolean>(false);
-	protected readonly minimumBirthDate = computed(() => this.formatDate(this.stateService.getMinimumFechaNacimiento()));
+	protected readonly minimumBirthDate = computed(() => formatDate(this.stateService.getMinimumFechaNacimiento()));
 	@ViewChild('dayInput') private readonly dayInput?: BalInput;
 	@ViewChild('monthInput') private readonly monthInput?: BalInput;
 	@ViewChild('yearInput') private readonly yearInput?: BalInput;
@@ -94,17 +95,11 @@ export class StepP8FechaNacimientoComponent implements AfterViewInit {
 		};
 	}
 
-	private formatDate(date: Date): string {
-		const day = String(date.getDate()).padStart(2, '0');
-		const month = String(date.getMonth() + 1).padStart(2, '0');
-		return `${day}/${month}/${date.getFullYear()}`;
-	}
-
 	private getNumericValue(event: Event): string {
 		const parsedEvent = parseCustomEvent(event);
 		if (!parsedEvent) return '';
 
-		return String(parsedEvent).replace(/\D/g, '');
+		return getNumericValue(parsedEvent);
 	}
 
 	private focusInput(input?: BalInput): void {

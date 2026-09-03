@@ -1,7 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { BalButton, BalInput, parseCustomEvent } from '@baloise/ds-angular';
 import { InsuranceNavigationService } from '@mnv-autos-clientes/core';
-import { AutoInsuranceDriverStateService } from '@mnv-autos-clientes/data';
+import { InsuranceStateService } from '@mnv-autos-clientes/data';
+import { getNumericValue } from '@mnv-autos-clientes/shared';
 
 @Component({
 	selector: 'lib-step-p9-anos-carnet',
@@ -11,7 +12,7 @@ import { AutoInsuranceDriverStateService } from '@mnv-autos-clientes/data';
 	styleUrl: './step-p9-anos-carnet.component.scss'
 })
 export class StepP9AnosCarnetComponent {
-	private readonly stateService = inject(AutoInsuranceDriverStateService);
+	private readonly stateService = inject(InsuranceStateService);
 	private readonly navigation = inject(InsuranceNavigationService);
 
 	protected readonly edadCarnet = signal<number>(18);
@@ -45,7 +46,7 @@ export class StepP9AnosCarnetComponent {
 			return;
 		}
 
-		const numericValue = Number(String(parsedEvent).replace(/\D/g, ''));
+		const numericValue = Number(getNumericValue(parsedEvent));
 		this.edadCarnet.set(Number.isNaN(numericValue) ? 0 : Math.max(18, numericValue));
 		this.persistValue();
 	}

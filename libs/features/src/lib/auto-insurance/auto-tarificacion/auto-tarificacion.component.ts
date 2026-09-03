@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BalButton, BalCard, BalCardContent, BalHeading, BalIcon, BalProgressBar, BalSpinner, BalTag, BalTagGroup, BalTooltip } from '@baloise/ds-angular';
-import { AutoInsuranceApiService, AutoInsuranceDriverStateService, InsuranceStateService } from '@mnv-autos-clientes/data';
+import { AutoInsuranceApiService, InsuranceStateService } from '@mnv-autos-clientes/data';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { InsuranceNavigationService, LoadingService } from '@mnv-autos-clientes/core';
 
@@ -16,7 +16,6 @@ export class AutoTarificacionComponent {
 	protected navigation = inject(InsuranceNavigationService);
 	protected apiService = inject(AutoInsuranceApiService);
 	private stateService = inject(InsuranceStateService);
-	private driverStateService = inject(AutoInsuranceDriverStateService);
 	private readonly loadingService = inject(LoadingService);
 
 	protected readonly isLoading = this.loadingService.isLoading;
@@ -34,7 +33,7 @@ export class AutoTarificacionComponent {
 	canAdvanceCurrentStep = computed(() => {
 		const currentStep = this.navigation.currentStep();
 		if (currentStep === 'fecha-nacimiento' || currentStep === 'anos-carnet') {
-			return this.driverStateService.canContinueFromStep(currentStep);
+			return this.stateService.canContinueFromStep(currentStep);
 		}
 
 		return currentStep !== 'tiene-aseguradora' || this.stateService.formData().tieneAseguradora !== undefined;

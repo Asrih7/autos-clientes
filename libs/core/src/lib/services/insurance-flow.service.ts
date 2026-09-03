@@ -1,11 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { AutoInsuranceDriverStateService, InsuranceStateService } from '@mnv-autos-clientes/data';
+import { InsuranceStateService } from '@mnv-autos-clientes/data';
 import { WizardStep } from '@mnv-autos-clientes/shared';
 
 @Injectable({ providedIn: 'root' })
 export class InsuranceFlowService {
 	private readonly insuranceState = inject(InsuranceStateService);
-	private readonly driverState = inject(AutoInsuranceDriverStateService);
 
 	getAccessRedirect(requestedStep: WizardStep): WizardStep | null {
 		const data = this.insuranceState.formData();
@@ -25,8 +24,8 @@ export class InsuranceFlowService {
 		}
 
 		if (data.tipoFlujo === 'MATRICULA' && isAtOrAfter('versiones') && !data.vehiculo) return 'busqueda';
-		if (isAtOrAfter('anos-carnet') && !this.driverState.isFechaNacimientoValida()) return 'fecha-nacimiento';
-		if (isAtOrAfter('tiene-aseguradora') && !this.driverState.isEdadObtencionCarnetValida()) return 'anos-carnet';
+		if (isAtOrAfter('anos-carnet') && !this.insuranceState.isFechaNacimientoValida()) return 'fecha-nacimiento';
+		if (isAtOrAfter('tiene-aseguradora') && !this.insuranceState.isEdadObtencionCarnetValida()) return 'anos-carnet';
 		if (isAtOrAfter('lista-aseguradoras') && data.tieneAseguradora !== true) return 'tiene-aseguradora';
 		if (isAtOrAfter('anos-asegurado') && !data.aseguradoraSeleccionada) return 'lista-aseguradoras';
 
@@ -37,10 +36,8 @@ export class InsuranceFlowService {
 		const data = this.insuranceState.formData();
 
 		switch (step) {
-			case 'fecha-nacimiento':
-				return this.driverState.isFechaNacimientoValida();
-			case 'anos-carnet':
-				return this.driverState.isEdadObtencionCarnetValida();
+			case 'fecha-nacimiento': return this.insuranceState.isFechaNacimientoValida();
+			case 'anos-carnet': return this.insuranceState.isEdadObtencionCarnetValida();
 			case 'tiene-aseguradora':
 				return data.tieneAseguradora !== undefined;
 			default:
@@ -50,7 +47,6 @@ export class InsuranceFlowService {
 
 	getNextStep(currentStep: WizardStep): WizardStep {
 		const data = this.insuranceState.formData();
-		const driverData = this.driverState.formData();
 
 		switch (currentStep) {
 			case 'busqueda': return data.tipoFlujo === 'MATRICULA' ? 'versiones' : 'marca';
@@ -63,7 +59,7 @@ export class InsuranceFlowService {
 			case 'fecha-nacimiento': return 'anos-carnet';
 			case 'anos-carnet': return 'tiene-aseguradora';
 			case 'tiene-aseguradora':
-				return data.tieneAseguradora ? 'lista-aseguradoras' : driverData.datosPersonalesActivos ? 'datos-personales' : 'precios';
+				return data.tieneAseguradora ? 'lista-aseguradoras' : data.datosPersonalesActivos ? 'datos-personales' : 'precios';
 			case 'lista-aseguradoras': return 'anos-asegurado';
 			case 'anos-asegurado': return 'historial-partes';
 			case 'historial-partes': return 'datos-personales';
