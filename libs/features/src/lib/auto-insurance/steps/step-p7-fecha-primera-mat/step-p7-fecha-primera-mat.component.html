@@ -1,0 +1,7 @@
+<div class="position-relative w-full h-full mt-large">
+	<lib-grid-tarjetas
+		[elementos]="years"
+		[idSeleccionado]="selectedYear()"
+		(elementoClick)="onCardClick($event)"
+	></lib-grid-tarjetas>
+</div>

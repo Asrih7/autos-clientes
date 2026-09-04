@@ -1,0 +1,24 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.selected-row {
+    background-color: var(--bal-color-primary) !important;
+
+    td {
+        color: var(--bal-color-white) !important;
+    }
+}
+
+tbody tr:hover:not(.selected-row) {
+    background-color: var(--bal-color-primary) !important;
+
+    td {
+        color: var(--bal-color-white) !important;
+    }
+}
+
+tbody tr {
+    cursor: pointer;
+}

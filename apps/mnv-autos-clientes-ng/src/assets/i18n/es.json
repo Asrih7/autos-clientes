@@ -1,0 +1,174 @@
+{
+	"tarificacion": {
+		"steps": {
+			"busqueda": "Indícanos cómo buscar tu vehículo",
+			"marca": "Selecciona la marca de tu vehículo",
+			"modelo": "Indícanos el modelo",
+			"fecha-matriculacion": "¿Cuándo fue matriculado por primera vez? (Opcional)",
+			"caracteristicas": "Datos de tu vehículo",
+			"versiones": " ¿Qué versión es la de tu vehículo?",
+			"fecha-primera-matriculacion": "Fecha de primera matriculación",
+			"fecha-nacimiento": "Fecha de nacimiento del conductor principal",
+			"anos-carnet": "¿Qué edad tenías cuando obtuviste tu carné de conducir?",
+			"tiene-aseguradora": "¿Tienes actualmente un seguro de vehículo a tu nombre?",
+			"lista-aseguradoras": "Selecciona tu compañía actual",
+			"anos-asegurado": "Años que llevas asegurado",
+			"historial-partes": "Historial de siniestros y partes",
+			"datos-personales": "Introduce tus datos personales",
+			"datos-contacto": "Datos de contacto y firma",
+			"precios": "Tu precio personalizado"
+		},
+		"tooltips": {
+			"fecha-primera-matriculacion": "Selecciona el año de la primera matriculación del vehículo.",
+			"anos-asegurado": "Selecciona los años que llevas asegurado.",
+			"historial-partes": "Selecciona los partes en los que fuiste responsable durante los últimos cinco años.",
+			"fecha-matriculacion": "Puedes encontrarla en la ficha técnica del vehículo. Indica la fecha de primera matriculación de tu coche",
+			"fecha-nacimiento": "Indica la fecha de nacimiento del conductor principal.",
+			"anos-carnet": "Indica la edad que tenía el conductor cuando obtuvo el carné de conducir.",
+			"tiene-aseguradora": "Selecciona si tienes actualmente un seguro de vehículo a tu nombre."
+		},
+		"forms": {
+			"next": "Siguiente",
+			"birthDate": {
+				"day": "Día",
+				"month": "Mes",
+				"year": "Año",
+				"incomplete": "Introduce la fecha de nacimiento completa.",
+				"invalid": "Introduce una fecha de nacimiento válida.",
+				"underage": "El conductor principal debe ser mayor de 18 años."
+			},
+			"licenseAge": {
+				"birthDateRequired": "Introduce primero una fecha de nacimiento válida.",
+				"invalid": "La fecha de obtención del carné debe ser anterior a la fecha actual."
+			},
+			"insurance": {
+				"yes": "Sí",
+				"no": "No"
+			}
+		},
+		"generico": {
+			"loading_texto": "Cargando, por favor espera..."
+		},
+		"tag_precio": "Tu precio",
+		"step1": {
+			"loading_texto": "Buscando el vehículo...",
+			"titulo": "Calcula el precio de tu seguro de coche",
+			"subtitulo_minuto": "En menos de 1 minuto tu precio personalizado.",
+			"pregunta_seleccion": "¿Cómo quieres seleccionar tu vehículo?",
+			"placeholder_matricula": "Ej. 1234ABC",
+			"boton_buscar": "Buscar",
+			"texto_hint": "Es inmediato y te ahorrarás muchos pasos",
+			"boton_manual": "De forma manual",
+			"titulo_cuanto_cuesta": "¿Cuánto cuesta un seguro de coche?",
+			"texto_cuanto_cuesta": "Para saber cuánto cuesta tu seguro de coche es necesario calcular el precio previamente, ya que, no existe un precio único e igual del seguro para todo el mundo. Y es que el cuánto pagarás por tu seguro de coche depende de tu modelo de coche, de tus características como conductor y de otros factores, como la modalidad que escojas (terceros, terceros ampliado y todo riesgo) o la inclusión de coberturas opcionales en la póliza.",
+			"titulo_ventajas": "Simulador del seguro de coche: principales ventajas",
+			"texto_ventajas": "Bienvenido al simulador del seguro de coche, una herramienta rápida diseñada para darte a conocer el presupuesto de tu seguro de coche. En apenas unos minutos tendrás tu precio de la forma más cómoda. No esperes más y aprovecha las ventajas de calcular el seguro de coche online:",
+			"ventajas_lista": [
+				"<strong>• Ahorra tiempo.</strong> Sabemos que el tiempo de las personas es muy valioso, por eso queremos poner a tu alcance la manera más ágil y sencilla de calcular tu seguro de coche. Todo en pequeños pasos y desde donde tú quieras.",
+				"<strong>• Tú decides.</strong> Utilizando nuestro simulador del seguro de coche tendrás total discreción a la hora de tomar tu decisión final. Valora precio y coberturas y decide.",
+				"<strong>• Fácil de usar.</strong> En cada uno de los pasos te mostramos de manera visual las diferentes opciones de respuesta. En este caso el gran protagonista es tu vehículo, por lo que el único requisito fundamental para obtener presupuesto del seguro de coche es conocer el modelo.",
+				"<strong>• Haz la simulación de tu seguro de coche tantas veces como necesites.</strong> No importa si te has equivocado en un dato, puedes repetir el proceso.",
+				"<strong>• Guarda tu precio.</strong> Si lo deseas, una vez tengas tu presupuesto del seguro de coche, te mandaremos un correo electrónico con un enlace, para que te descargues tu precio y no tengas que volver a calcularlo."
+			],
+			"titulo_calcular_online": "Calcular el seguro de coche online",
+			"titulo_contratar": "Contratar mi Seguro de Coche",
+			"faqs_calcular": [
+				{
+					"q": "¿Cómo calcular el seguro de coche online con Caser Seguros?",
+					"a": "Calcular el seguro de coche online con Caser Seguros es muy sencillo. Para ello solo debes conocer algunos datos básicos de tu vehículo, como el modelo y el año de matriculación. Y otros relacionados con tu carnet de conducir, como la fecha de emisión."
+				},
+				{
+					"q": "¿Puedo calcular el precio del seguro de coche para todas las modalidades disponibles?",
+					"a": "El simulador del seguro de coche está pensando para darte todas las opciones posibles de la manera más fácil, por lo que al final del proceso te calculamos automáticamente el precio para todas aquellas modalidades que mejor se adecuen a tu vehículo."
+				},
+				{
+					"q": "¿Puedo incluir un segundo conductor en mi proceso de simulación del seguro de coche?",
+					"a": "Puedes añadir un segundo conductor en el formulario de contratación online, después de ver precio."
+				},
+				{
+					"q": "Una vez obtenga precio, ¿estoy obligado a contratar?",
+					"a": "Rotundamente no. Hacer uso de nuestro simulador no te compromete a nada con nosotros. Si las opciones que te damos se adaptan a lo que buscas, entonces podrás contratar posteriormente."
+				},
+				{
+					"q": "¿Cómo guardo mi precio?",
+					"a": "Una vez finalices tu simulación del seguro de coche, te damos la posibilidad de indicarnos tu dirección de correo electrónico para mandarte los precios obtenidos para cada modalidad."
+				},
+				{
+					"q": "¿Por qué para guardar mi precio se me pide el DNI?",
+					"a": "Te solicitamos el DNI para poder guardar tu presupuesto en nuestra base de datos y asociarlo a tu persona. Pero recuerda, obtener tu precio no implica contratar."
+				},
+				{
+					"q": "¿Qué factores influyen al calcular el seguro de coche online?",
+					"a": "Existen diferentes factores que influyen a la hora de calcular el precio de tu seguro de coche. Algunos de ellos son los siguientes:<br><br>• <strong>Tus características como conductor:</strong> edad, historial de accidentes, antigüedad del carnet de conducir, provincia en la que vives...<br>• <strong>¿Cómo es tu coche?:</strong> antigüedad, motor, ¿tienes plaza de garaje?...<br>• <strong>Modalidad contratada:</strong> terceros básico, terceros ampliado o todo riesgo."
+				}
+			],
+			"faqs_contratar": [
+				{
+					"q": "¿Qué datos necesito para el proceso de contratación de mi seguro de coche?",
+					"a": "Solamente necesitarás unos datos de contacto básicos."
+				},
+				{
+					"q": "¿Puedo fraccionar el pago del seguro de coche?",
+					"a": "Sí. Puedes fraccionar el pago de la prima de tu seguro siempre que supere los 100€ por recibo. Podrás hacerlo de forma anual, semestral y trimestral."
+				},
+				{
+					"q": "¿Puedo hacer uso del seguro desde el mismo día que lo contrato?",
+					"a": "Podrás hacer uso de tu seguro desde el mismo día y hora de la fecha de efecto de la póliza."
+				},
+				{
+					"q": "¿Tengo que facilitar datos bancarios al contratar online?",
+					"a": "Sí, ya que el pago de tu seguro se realiza a través de domiciliación bancaria."
+				},
+				{
+					"q": "Una vez contratado mi seguro de coche, ¿se me envía algún tipo de documentación por email?",
+					"a": "Tras la contratación, a los pocos minutos, recibirás en tu email un enlace para firmar y descargar tu documentación. Este proceso es muy fácil, ya que para firmar, te enviaremos un SMS al móvil. Podrás descargarte tus condiciones generales, particulares y carta verde."
+				}
+			],
+			"notification_messages": {
+				"success_200": "Vehículo encontrado con éxito.",
+				"not_found_404": "No se ha encontrado ningún vehículo con los datos proporcionados.",
+				"generic_error": "Hubo un problema al realizar la búsqueda del vehículo."
+			}
+		},
+		"step2": {
+			"loading_texto": "Cargando catálogo de marcas...",
+			"titulo": "Selecciona la marca de tu vehículo",
+			"label_otras_marcas": "Otras marcas:",
+			"placeholder_select": "Selecciona una marca...",
+			"notification_messages": {
+				"generic_error": "Hubo un problema al recuperar el listado de marcas."
+			}
+		},
+		"step3": {
+			"otros_modelos": "Otros modelos",
+			"notification_messages": {
+				"generic_error": "Hubo un problema al recuperar el listado de modelos."
+			},
+			"placeholder_select": "Selecciona un modelo..."
+		},
+		"step5": {
+			"titulo_combustible": "Elige el tipo de combustible",
+			"titulo_puertas": "Elige el número de puertas",
+			"titulo_asientos": "Elige el número de asientos"
+		},
+		"step6": {
+			"notification_messages": {
+				"200_success": "Versiones encontradas con éxito.",
+				"404_not_found": "No se han encontrado versiones asociadas a los datos ingresados.",
+				"generic_error": "Hubo un problema al realizar la búsqueda de versiones."
+			},
+			"boton_buscar": "Buscar",
+			"boton_siguiente": "Siguiente",
+			"placeholder_filtro": "Filtra los resultados con este buscador...",
+			"titulos_tabla": {
+				"marca": "MARCA",
+				"modelo": "MODELO",
+				"version": "VERSIÓN",
+				"cilindrada": "CILINDRADA",
+				"potencia": "CV",
+				"puertas": "N° PUERTAS",
+				"fabricacion": "INICIO FABRICACIÓN"
+			}
+		}
+	}
+}

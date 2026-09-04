@@ -1,0 +1,21 @@
+<div class="position-relative w-full h-full mt-large">
+	@if (errorMsg()) {
+		<div class="flex justify-content-center w-full mb-medium">
+			<span class="text-hint text-medium font-weight-bold text-danger">{{ errorMsg() }}</span>
+		</div>
+	}
+	@if (opciones().length) {
+		<lib-grid-tarjetas
+			[elementos]="opcionesGrid()"
+			[idSeleccionado]="opcionSeleccionada()"
+			(elementoClick)="onCardClick($event)"
+		></lib-grid-tarjetas>
+	}
+	@if (opciones().length > 25) {
+		<bal-select placeholder="Selecciona una opción" [value]="opcionSeleccionada() ?? ''" (balChange)="onSelectUpdate($event)">
+			@for (opcion of opciones(); track opcion.id) {
+				<bal-select-option [value]="opcion.id" [label]="opcion.nombre">{{ opcion.nombre }}</bal-select-option>
+			}
+		</bal-select>
+	}
+</div>
