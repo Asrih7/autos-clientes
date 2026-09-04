@@ -24,10 +24,13 @@ export interface AutoInsuranceData extends BirthDateParts {
 	tieneAseguradora?: boolean;
 	mesPrimerMatricula?: string;
 	anioPrimerMatricula?: string;
+	anioPrimeraMatriculacion?: string;
 	combustible?: string;
 	numeroPuertas?: string;
 	numeroPlazas?: string;
 	edadObtencionCarnet?: number;
+	aniosAsegurado?: string;
+	numeroSiniestros?: string;
 	datosPersonalesActivos?: boolean;
 }
 
@@ -77,6 +80,9 @@ export class InsuranceStateService {
 		switch (step) {
 			case 'fecha-nacimiento': return this.isFechaNacimientoValida(data);
 			case 'anos-carnet': return this.isEdadObtencionCarnetValida(data);
+			case 'fecha-primera-matriculacion': return Boolean(data.anioPrimeraMatriculacion);
+			case 'anos-asegurado': return Boolean(data.aniosAsegurado);
+			case 'historial-partes': return Boolean(data.numeroSiniestros);
 			case 'tiene-aseguradora': return data.tieneAseguradora !== undefined;
 			default: return true;
 		}

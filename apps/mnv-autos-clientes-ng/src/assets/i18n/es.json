@@ -19,6 +19,9 @@
 			"precios": "Tu precio personalizado"
 		},
 		"tooltips": {
+			"fecha-primera-matriculacion": "Selecciona el año de la primera matriculación del vehículo.",
+			"anos-asegurado": "Selecciona los años que llevas asegurado.",
+			"historial-partes": "Selecciona los partes en los que fuiste responsable durante los últimos cinco años.",
 			"fecha-matriculacion": "Puedes encontrarla en la ficha técnica del vehículo. Indica la fecha de primera matriculación de tu coche",
 			"fecha-nacimiento": "Indica la fecha de nacimiento del conductor principal.",
 			"anos-carnet": "Indica la edad que tenía el conductor cuando obtuvo el carné de conducir.",

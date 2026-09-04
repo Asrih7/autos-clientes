@@ -19,6 +19,9 @@
 			"precios": "Your personalized price"
 		},
 		"tooltips": {
+			"fecha-primera-matriculacion": "Select the year of the vehicle's first registration.",
+			"anos-asegurado": "Select how many years you have been insured.",
+			"historial-partes": "Select the claims for which you were responsible during the last five years.",
 			"fecha-matriculacion": "You can find it on the vehicle technical sheet. Indicate your car's first registration date",
 			"fecha-nacimiento": "Enter the birth date of the main driver.",
 			"anos-carnet": "Enter the age the driver had when they got their driving license.",

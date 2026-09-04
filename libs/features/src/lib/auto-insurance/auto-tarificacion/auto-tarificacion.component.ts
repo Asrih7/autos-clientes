@@ -49,6 +49,12 @@ export class AutoTarificacionComponent {
 				return 'tooltips.anos-carnet';
 			case 'tiene-aseguradora':
 				return 'tooltips.tiene-aseguradora';
+			case 'fecha-primera-matriculacion':
+				return 'tooltips.fecha-primera-matriculacion';
+			case 'anos-asegurado':
+				return 'tooltips.anos-asegurado';
+			case 'historial-partes':
+				return 'tooltips.historial-partes';
 
 			default:
 				return null;

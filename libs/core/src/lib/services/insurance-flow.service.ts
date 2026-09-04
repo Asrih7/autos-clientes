@@ -24,10 +24,15 @@ export class InsuranceFlowService {
 		}
 
 		if (data.tipoFlujo === 'MATRICULA' && isAtOrAfter('versiones') && !data.vehiculo) return 'busqueda';
+		if (data.tipoFlujo === 'MANUAL' && isAtOrAfter('fecha-nacimiento') && !data.anioPrimeraMatriculacion) {
+			return 'fecha-primera-matriculacion';
+		}
 		if (isAtOrAfter('anos-carnet') && !this.insuranceState.isFechaNacimientoValida()) return 'fecha-nacimiento';
 		if (isAtOrAfter('tiene-aseguradora') && !this.insuranceState.isEdadObtencionCarnetValida()) return 'anos-carnet';
 		if (isAtOrAfter('lista-aseguradoras') && data.tieneAseguradora !== true) return 'tiene-aseguradora';
 		if (isAtOrAfter('anos-asegurado') && !data.aseguradoraSeleccionada) return 'lista-aseguradoras';
+		if (isAtOrAfter('historial-partes') && !data.aniosAsegurado) return 'anos-asegurado';
+		if (isAtOrAfter('datos-personales') && !data.numeroSiniestros) return 'historial-partes';
 
 		return null;
 	}
@@ -38,6 +43,9 @@ export class InsuranceFlowService {
 		switch (step) {
 			case 'fecha-nacimiento': return this.insuranceState.isFechaNacimientoValida();
 			case 'anos-carnet': return this.insuranceState.isEdadObtencionCarnetValida();
+			case 'fecha-primera-matriculacion':
+			case 'anos-asegurado':
+			case 'historial-partes': return this.insuranceState.canContinueFromStep(step);
 			case 'tiene-aseguradora':
 				return data.tieneAseguradora !== undefined;
 			default:

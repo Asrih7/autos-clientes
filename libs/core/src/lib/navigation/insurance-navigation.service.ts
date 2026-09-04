@@ -37,6 +37,9 @@ export class InsuranceNavigationService {
 
 			case 'fecha-nacimiento':
 			case 'anos-carnet':
+			case 'fecha-primera-matriculacion':
+			case 'anos-asegurado':
+			case 'historial-partes':
 				return this.stateService.canContinueFromStep(step);
 
 			case 'tiene-aseguradora':
