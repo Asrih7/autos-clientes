@@ -1,0 +1,1 @@
+export * from './lib/grid-tarjetas/grid-tarjetas.component';
