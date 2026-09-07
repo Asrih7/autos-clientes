@@ -128,6 +128,27 @@ export const AUTO_INSURANCE_ROUTES: Routes = [
 						(m) => m.StepP16ParrillaPreciosComponent
 					),
 				canActivate: [insuranceFlowGuard]
+			},
+			{
+				path: 'sin-precio',
+				loadComponent: () =>
+					import('./steps/step-p16-sin-precio/step-p16-sin-precio.component').then(
+						(m) => m.StepP16SinPrecioComponent
+					)
+			},
+			{
+				path: 'contratacion',
+				loadComponent: () =>
+					import('./steps/step-p17-contratacion/step-p17-contratacion.component').then(
+						(m) => m.StepP17ContratacionComponent
+					),
+				canActivate: [insuranceFlowGuard]
+			},
+			{
+				path: 'p18',
+				loadComponent: () =>
+					import('./steps/step-p18/step-p18.component').then((m) => m.StepP18Component),
+				canActivate: [insuranceFlowGuard]
 			}
 		]
 	}

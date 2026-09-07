@@ -16,7 +16,9 @@
 			"historial-partes": "Claims and accidents history",
 			"datos-personales": "Enter your personal details",
 			"datos-contacto": "Contact details and signature",
-			"precios": "Your personalized price"
+			"precios": "Your personalized price",
+			"contratacion": "Online car insurance purchase",
+			"p18": "Purchase"
 		},
 		"tooltips": {
 			"fecha-primera-matriculacion": "Select the year of the vehicle's first registration.",
@@ -25,7 +27,8 @@
 			"fecha-matriculacion": "You can find it on the vehicle technical sheet. Indicate your car's first registration date",
 			"fecha-nacimiento": "Enter the birth date of the main driver.",
 			"anos-carnet": "Enter the age the driver had when they got their driving license.",
-			"tiene-aseguradora": "Select whether you currently have vehicle insurance in your name."
+			"tiene-aseguradora": "Select whether you currently have vehicle insurance in your name.",
+			"contratacion": "Confirm the last digits of your current policy to validate your bonuses."
 		},
 		"forms": {
 			"next": "Next",

@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="flex-1 flex flex-direction-column pt-large">
-		@if (navigation.currentStep() !== 'busqueda') {
+		@if (navigation.currentStep() !== 'busqueda' && navigation.currentStep() !== 'sin-precio') {
 			<header class="flex flex-direction-row align-items-center justify-content-between pb-normal border-bottom-grey">
 				<div class="w-1 flex align-items-center">
 					@if (navigation.canGoBack()) {

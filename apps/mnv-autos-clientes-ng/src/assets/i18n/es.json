@@ -16,7 +16,9 @@
 			"historial-partes": "Historial de siniestros y partes",
 			"datos-personales": "Introduce tus datos personales",
 			"datos-contacto": "Datos de contacto y firma",
-			"precios": "Tu precio personalizado"
+			"precios": "Tu precio personalizado",
+			"contratacion": "Contratación online de tu seguro de coche",
+			"p18": "Contratación"
 		},
 		"tooltips": {
 			"fecha-primera-matriculacion": "Selecciona el año de la primera matriculación del vehículo.",

@@ -14,4 +14,7 @@ export type WizardStep =
 	| 'historial-partes'
 	| 'datos-personales'
 	| 'datos-contacto'
-	| 'precios';
+	| 'precios'
+	| 'contratacion'
+	| 'p18'
+	| 'sin-precio';

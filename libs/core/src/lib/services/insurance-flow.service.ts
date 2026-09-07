@@ -33,6 +33,7 @@ export class InsuranceFlowService {
 		if (isAtOrAfter('anos-asegurado') && !data.aseguradoraSeleccionada) return 'lista-aseguradoras';
 		if (isAtOrAfter('historial-partes') && !data.aniosAsegurado) return 'anos-asegurado';
 		if (isAtOrAfter('datos-personales') && !data.numeroSiniestros) return 'historial-partes';
+		if (requestedStep === 'contratacion' && !data.modalidadSeleccionada) return 'precios';
 
 		return null;
 	}
@@ -73,6 +74,8 @@ export class InsuranceFlowService {
 			case 'historial-partes': return 'datos-personales';
 			case 'datos-personales': return 'datos-contacto';
 			case 'datos-contacto': return 'precios';
+			case 'precios': return data.tieneAseguradora ? 'contratacion' : 'p18';
+			case 'contratacion': return 'p18';
 			default: return currentStep;
 		}
 	}

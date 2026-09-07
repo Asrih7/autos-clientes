@@ -48,6 +48,12 @@ export class InsuranceNavigationService {
 			case 'tiene-aseguradora':
 				return formData?.tieneAseguradora !== undefined;
 
+			case 'precios':
+				return !!formData?.modalidadSeleccionada;
+
+			case 'contratacion':
+				return !!formData?.ultimosDigitosPoliza && formData.ultimosDigitosPoliza.length === 5;
+
 			default:
 				return true;
 		}

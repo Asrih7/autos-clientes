@@ -13,6 +13,7 @@ import { BusquedaVehiculo } from '../models/busqueda-vehiculo.model';
 import { Marca } from '../models/marca.model';
 import { Aseguradora } from '../models/aseguradora.model';
 import { Modelo } from '../models/modelo.model';
+import { Modalidad } from '../models/modalidades.model';
 
 export interface AutoInsuranceData extends BirthDateParts {
 	tipoFlujo?: 'MATRICULA' | 'MANUAL';
@@ -33,6 +34,8 @@ export interface AutoInsuranceData extends BirthDateParts {
 	aniosAsegurado?: string;
 	numeroSiniestros?: string;
 	datosPersonalesActivos?: boolean;
+	modalidadSeleccionada?: Modalidad;
+	ultimosDigitosPoliza?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -60,6 +63,8 @@ export class InsuranceStateService {
 			steps.push('lista-aseguradoras', 'anos-asegurado', 'historial-partes');
 		}
 		steps.push('datos-personales', 'datos-contacto', 'precios');
+		if (data.tieneAseguradora) steps.push('contratacion');
+		steps.push('p18');
 		return steps;
 	});
 
