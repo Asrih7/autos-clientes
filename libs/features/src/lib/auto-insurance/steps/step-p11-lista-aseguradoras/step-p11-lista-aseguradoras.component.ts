@@ -16,7 +16,8 @@ export class StepP11ListaAseguradorasComponent implements OnInit {
 	private readonly navigation = inject(InsuranceNavigationService);
 
 	protected readonly errorMsg = this.aseguradorasService.errorMsg;
-	protected readonly aseguradoras = this.aseguradorasService.aseguradoras;
+	protected readonly aseguradorasGrid = this.aseguradorasService.aseguradorasPrincipalesGrid;
+	protected readonly aseguradorasSelect = this.aseguradorasService.aseguradorasDesplegable;
 	protected readonly aseguradoraSeleccionada = this.aseguradorasService.aseguradoraSeleccionada;
 
 	constructor() {
@@ -39,7 +40,7 @@ export class StepP11ListaAseguradorasComponent implements OnInit {
 		const id = event.detail;
 		if (!id || Array.isArray(id)) return;
 
-		const aseguradora = this.aseguradoras().find((item) => item.id === id);
+		const aseguradora = this.aseguradorasSelect().find((item) => item.id === id);
 		if (aseguradora) this.seleccionarAseguradora(aseguradora);
 	}
 

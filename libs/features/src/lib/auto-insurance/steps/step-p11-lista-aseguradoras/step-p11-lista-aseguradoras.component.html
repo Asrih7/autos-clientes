@@ -7,14 +7,15 @@
 		</div>
 	}
 
-	@if (aseguradoras().length > 0) {
+	@if (aseguradorasGrid().length > 0) {
 		<lib-grid-tarjetas
-			[elementos]="aseguradoras()"
+			[elementos]="aseguradorasGrid()"
 			[idSeleccionado]="aseguradoraSeleccionada()?.id"
 			(elementoClick)="onCardClick($event)"
 		></lib-grid-tarjetas>
 	}
 
+	@if (aseguradorasSelect().length > 0) {
 	<div class="flex flex-direction-column w-full background-grey-light p-large border-radius-normal mt-medium">
 		<span class="text-medium font-weight-bold text-primary-dark mb-x-small">¿No encuentras tu compañía?</span>
 
@@ -24,11 +25,12 @@
 			(balChange)="onSelectUpdate($event)"
 			typeahead="true"
 		>
-			@for (aseguradora of aseguradoras(); track aseguradora.id) {
+			@for (aseguradora of aseguradorasSelect(); track aseguradora.id) {
 				<bal-select-option [value]="aseguradora.id" [label]="aseguradora.nombre">
 					{{ aseguradora.nombre }}
 				</bal-select-option>
 			}
 		</bal-select>
 	</div>
+	}
 </div>
