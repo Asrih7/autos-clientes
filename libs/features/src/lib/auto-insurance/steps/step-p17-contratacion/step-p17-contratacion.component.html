@@ -1,0 +1,75 @@
+<section class="flex flex-direction-column w-full px-xx-large py-x-large" *transloco="let t; prefix: 'tarificacion.p17'">
+	<!-- Cabecera de contratación -->
+	<div class="flex flex-direction-column align-items-center text-center mb-xx-large">
+		<bal-heading level="h1" space="none" class="title text-xx-large">
+			{{ t('title') }}
+		</bal-heading>
+		<p class="text-large m-0 mt-small">{{ t('subtitle') }}</p>
+	</div>
+
+	<!-- Resumen de vehículo, modalidad y precio -->
+	<lib-vehicle-price-summary
+		class="mb-x-large"
+		[vehicleTitle]="tituloVehiculo() ?? t('vehicle_fallback')"
+		[vehicleDetail]="detalleVehiculo()"
+		[registrationLabel]="t('registration')"
+		[registration]="matriculaVehiculo() ?? ''"
+		[modality]="modalidad()?.agrupacion?.descripcion ?? t('modality')"
+		[amount]="precio()"
+	></lib-vehicle-price-summary>
+
+	<!-- Cabecera del paso -->
+	<div class="flex align-items-center w-full border-bottom-grey pb-normal mb-xx-large">
+		<bal-button square="true" color="info" icon="nav-go-left" (click)="volver()"></bal-button>
+		<div class="flex align-items-center gap-small ml-normal">
+			<h2 class="title text-x-large m-0">{{ t('confirmation_title') }}</h2>
+			<bal-icon id="poliza-tooltip" name="info-circle" size="medium"></bal-icon>
+			<bal-tooltip reference="poliza-tooltip">{{ t('tooltip') }}</bal-tooltip>
+		</div>
+		<bal-button class="ml-auto" square="true" color="info" icon="nav-go-right" [disabled]="error() || poliza().length !== 5 || recalculando()" (click)="continuar()"></bal-button>
+	</div>
+
+	<!-- Información de póliza -->
+	<bal-notification color="success" class="w-full mb-xx-large">
+		<strong>{{ t('policy_info_title') }}</strong>
+		<p class="m-0">{{ t('policy_info_body') }}</p>
+	</bal-notification>
+
+	<!-- Cinco últimos dígitos -->
+	<div class="flex flex-direction-column align-items-center mb-xx-large">
+		<label class="text-medium font-weight-bold">{{ t('policy_digits_label') }}</label>
+		<div class="flex justify-content-center w-max gap-none mt-small">
+			@for (digito of digitosPoliza(); track $index; let indice = $index) {
+				<div class="w-4rem">
+					<bal-input #polizaInput type="text" inputmode="numeric" maxlength="1" [value]="digito" (balInput)="actualizarDigito(indice, $event)" (keydown)="gestionarTecla(indice, $event)" (balBlur)="alPerderFoco()"></bal-input>
+				</div>
+			}
+		</div>
+		@if (error()) {
+			<span class="text-hint color-danger mt-small">{{ t('policy_digits_error') }}</span>
+		}
+		<bal-button #continueButton class="mt-large" color="primary" [disabled]="error() || poliza().length !== 5 || recalculando()" (click)="continuar()">
+			{{ recalculando() ? t('recalculating') : requiereRecalculo() ? t('recalculate') : t('next') }}
+		</bal-button>
+	</div>
+
+	<!-- Guardar presupuesto -->
+	<bal-notification color="warning" noIcon="true" class="w-full">
+		<div class="grid is-multiline">
+			<div class="col mobile:is-12 tablet:is-8">
+				<bal-heading level="h3" space="none">{{ t('save_quote_title') }}</bal-heading>
+				<p class="m-0">{{ t('save_quote_body') }}</p>
+			</div>
+			<div class="col mobile:is-12 tablet:is-4 flex justify-content-end align-items-start">
+				<bal-button color="info" outlined="true" [disabled]="!puedeGuardarPresupuesto()" (click)="guardarPresupuesto()">{{ t('save_quote_button') }}</bal-button>
+			</div>
+			<div class="col mobile:is-12 flex justify-content-center mt-normal">
+				<div class="w-18rem">
+					<label class="text-medium font-weight-bold">{{ t('email_label') }}</label>
+					<bal-input class="mt-x-small" type="email" [value]="email()" (balInput)="actualizarEmail($event)" (focusout)="validarEmail()"></bal-input>
+					<bal-checkbox class="mt-small" [checked]="privacidadAceptada()" (balChange)="actualizarPrivacidad($event)">{{ t('privacy_label') }}</bal-checkbox>
+				</div>
+			</div>
+		</div>
+	</bal-notification>
+</section>
