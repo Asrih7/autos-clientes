@@ -1,0 +1,27 @@
+{
+	"app": {
+		"name": "Version Zero Helvetia",
+		"version": "Version"
+	},
+	"nav": {
+		"version": "v{{ version }}"
+	},
+	"table": {
+		"lib": "Library",
+		"component": "Component",
+		"status": "Status",
+		"ready": "Ready"
+	},
+	"footer": {
+		"name": "Name",
+		"version": "Version"
+	},
+	"welcome": {
+		"title": "Version Zero",
+		"description": "Version zero of the Helvetia Angular frontend application with an architecture based on Nx and Angular 20 with the Baloise Design System library. Remember to review the project readme.",
+		"ds_working": "Baloise DS is working ✓",
+		"btn_primary": "Primary Button",
+		"btn_secondary": "Secondary Button",
+		"btn_tertiary": "Tertiary Button"
+	}
+}

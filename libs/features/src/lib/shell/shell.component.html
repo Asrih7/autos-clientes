@@ -1,0 +1,71 @@
+<header class="mb-large">
+	<h1 class="title text-xx-large mb-normal">Tarificación "Autos y vehículos"</h1>
+
+	<bal-steps [value]="this.flowService.activeRouteStep()">
+		<bal-step-item value="tu-cliente" label="Tu cliente" [done]="store.isClienteComplete()"> </bal-step-item>
+
+		<bal-step-item
+			value="vehiculos"
+			label="Vehículos"
+			[disabled]="!store.isClienteComplete()"
+			[done]="store.isVehiculoComplete()"
+		>
+		</bal-step-item>
+
+		<bal-step-item
+			value="conductores"
+			label="Conductores"
+			[disabled]="!store.isVehiculoComplete()"
+			[done]="store.isConductoresComplete()"
+		>
+		</bal-step-item>
+
+		<bal-step-item
+			value="primas-y-coberturas"
+			label="Precios y coberturas"
+			[disabled]="!store.isConductoresComplete()"
+			[done]="store.isPrimasCoberturasComplete()"
+		>
+		</bal-step-item>
+
+		<bal-step-item
+			value="produccion"
+			label="Producción"
+			[disabled]="!store.isPrimasCoberturasComplete()"
+			[done]="store.isFinalFlowComplete()"
+		>
+		</bal-step-item>
+	</bal-steps>
+</header>
+
+<main class="w-full">
+	<!-- Dynamic step feature pages swap cleanly right here -->
+	<router-outlet></router-outlet>
+</main>
+
+<footer class="w-full mt-large">
+  <div class="flex flex-direction-row justify-content-end gap-small">
+    
+    <!-- 1. BACK BUTTON: Hidden on the first page ('tu-cliente') -->
+    <div>
+      @if (this.flowService.activeRouteStep() !== 'tu-cliente') {
+        <bal-button color="secondary" (click)="onBack()">
+          Atrás
+        </bal-button>
+      }
+    </div>
+
+    <!-- 2. NEXT BUTTON: Hidden on the last page ('produccion') -->
+    <div>
+      @if (this.flowService.activeRouteStep() !== 'produccion') {
+        <bal-button 
+          color="primary" 
+          [disabled]="!this.flowService.isCurrentPageValid()" 
+          (click)="onNext()">
+          Siguiente
+        </bal-button>
+      }
+    </div>
+
+  </div>
+</footer>
