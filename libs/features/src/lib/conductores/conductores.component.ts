@@ -1,9 +1,0 @@
-import { Component } from '@angular/core';
-
-@Component({
-    selector: 'lib-conductores',
-    imports: [],
-    templateUrl: './conductores.component.html',
-    styleUrl: './conductores.component.scss'
-})
-export class ConductoresComponent { }
