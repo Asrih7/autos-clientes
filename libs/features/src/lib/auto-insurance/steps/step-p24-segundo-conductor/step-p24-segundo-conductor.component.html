@@ -16,7 +16,8 @@
 
 	<div class="flex align-items-center w-full border-bottom-grey pb-normal mb-x-large">
 		<bal-button square="true" color="info" icon="nav-go-left" (click)="volver()"></bal-button>
-		<div class="flex align-items-center ml-normal">
+		<div class="flex align-items-center gap-small ml-normal">
+			<h2 class="title text-x-large m-0">{{ t('subtitle') }}</h2>
 			<bal-icon id="p24-tooltip" name="info-circle" size="medium"></bal-icon>
 			<bal-tooltip reference="p24-tooltip">{{ t('tooltip') }}</bal-tooltip>
 		</div>
