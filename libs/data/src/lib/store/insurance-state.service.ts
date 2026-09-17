@@ -30,6 +30,8 @@ import { CarVersion } from '../models/version.model';
 import { AutoInsuranceApiService } from '../services/auto-insurance-api.service';
 
 export interface AutoInsuranceData extends BirthDateParts {
+	identificador?: number;
+	tarea?: string;
 	tipoFlujo?: 'MATRICULA' | 'MANUAL';
 	vehiculo?: BusquedaVehiculo;
 	marcaSeleccionada?: Marca;
