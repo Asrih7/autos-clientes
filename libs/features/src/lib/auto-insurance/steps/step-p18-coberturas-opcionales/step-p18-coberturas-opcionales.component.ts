@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { BalButton, BalCard, BalCardContent, BalCheckbox, BalHeading, BalIcon, BalTooltip, parseCustomEvent } from '@baloise/ds-angular';
 import { InsuranceNavigationService } from '@mnv-autos-clientes/core';
-import { CoberturaOpcional, InsuranceStateService, P18CoberturasOpcionalesService } from '@mnv-autos-clientes/data';
+import { CoberturaOpcional, CotizacionService, InsuranceStateService, P18CoberturasOpcionalesService } from '@mnv-autos-clientes/data';
 import { VehiclePriceSummaryComponent } from '@mnv-autos-clientes/ui';
 import { TranslocoDirective } from '@jsverse/transloco';
 
@@ -15,6 +15,7 @@ export class Step18CoberturasOpcionales {
     private readonly navigation = inject(InsuranceNavigationService);
     protected readonly state = inject(InsuranceStateService);
     private readonly coberturasService = inject(P18CoberturasOpcionalesService);
+    private readonly cotizacionService = inject(CotizacionService);
     protected readonly coberturas = this.coberturasService.coberturas;
     protected readonly seleccionadas = this.coberturasService.seleccionadas;
     private readonly coberturasTarificadas = signal<string[]>([]);
@@ -33,7 +34,12 @@ export class Step18CoberturasOpcionales {
     protected cambiarCobertura(cobertura: CoberturaOpcional, event: Event): void {
         const marcada = Boolean(parseCustomEvent(event));
         this.coberturasService.cambiarSeleccion(cobertura.codigo, marcada);
-        this.state.saveData({ coberturasOpcionalesSeleccionadas: this.seleccionadas() });
+        const codigoEscenario = this.modalidad()?.codigo;
+        const porEscenario = this.state.formData().coberturasOpcionalesPorEscenario ?? {};
+        this.state.saveData({
+            coberturasOpcionalesSeleccionadas: this.seleccionadas(),
+            coberturasOpcionalesPorEscenario: codigoEscenario ? { ...porEscenario, [codigoEscenario]: this.seleccionadas() } : porEscenario
+        });
     }
 
     protected estaSeleccionada(cobertura: CoberturaOpcional): boolean {
@@ -54,14 +60,22 @@ export class Step18CoberturasOpcionales {
         if (this.recalculando()) return;
         if (this.requiereRecalculo()) {
             this.recalculando.set(true);
-            const modalidad = this.modalidad();
-            const precioRecalculado = (modalidad?.primaTotal ?? 0) + this.coberturasSeleccionadas().reduce((total, cobertura) => total + cobertura.precio, 0);
-            if (modalidad) this.state.saveData({ modalidadSeleccionada: { ...modalidad, primaTotal: precioRecalculado } });
-            setTimeout(() => {
-                this.precioTarificado.set(precioRecalculado);
+            this.cotizacionService.cotizar().subscribe({ next: (respuesta) => {
+                const modalidad = this.modalidad();
+                const escenario = respuesta.escenarios.find((item) => item.codigo === modalidad?.codigo);
+                if (modalidad && escenario) {
+                    this.state.saveData({ modalidadSeleccionada: {
+                        ...modalidad,
+                        primaTotal: escenario.primaTotal,
+                        primerRecibo: escenario.primerRecibo,
+                        restoRecibos: escenario.restoRecibos,
+                        coberturasIncluidas: escenario.coberturasObligatorias,
+                        coberturasOpcionales: escenario.coberturasOpcionales
+                    } });
+                }
                 this.coberturasTarificadas.set([...this.seleccionadas()]);
                 this.recalculando.set(false);
-            }, 250);
+            }, error: () => this.recalculando.set(false) });
             return;
         }
         this.navigation.next();
@@ -76,9 +90,5 @@ export class Step18CoberturasOpcionales {
     protected detalleVehiculo(): string {
         const version = this.state.formData().versionSeleccionada;
         return version ? [version.version.nombre, `${version.cilindradaCc}cc`, `${version.potenciaCv}CV`, `${version.numeroPuertas} puertas`, `(${version.anioLanzamiento})`].join(', ') : '';
-    }
-
-    private coberturasSeleccionadas(): CoberturaOpcional[] {
-        return this.coberturasService.coberturaSeleccionadas();
     }
 }

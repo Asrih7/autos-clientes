@@ -20,10 +20,12 @@ export class StepP16ParrillaPreciosComponent implements OnInit {
 	protected readonly grupos = this.modalidadesService.grupos;
 
 	ngOnInit(): void {
-		this.modalidadesService.cargarModalidades();
-		if (this.modalidadesService.sinPrecios()) {
-			void this.router.navigate(['../sin-precio'], { relativeTo: this.route, replaceUrl: true });
-		}
+		this.modalidadesService.cargarModalidades().subscribe({
+			next: () => {
+				if (this.modalidadesService.sinPrecios()) void this.router.navigate(['../sin-precio'], { relativeTo: this.route, replaceUrl: true });
+			},
+			error: (error) => console.error('Error al obtener la cotización:', error)
+		});
 	}
 
 	protected modalidadSeleccionada(grupo: GrupoModalidades): Modalidad {

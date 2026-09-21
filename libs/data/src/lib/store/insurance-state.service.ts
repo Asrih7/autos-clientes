@@ -28,10 +28,12 @@ import { Modalidad } from '../models/modalidades.model';
 import { Modelo } from '../models/modelo.model';
 import { CarVersion } from '../models/version.model';
 import { AutoInsuranceApiService } from '../services/auto-insurance-api.service';
+import { CotizacionResponseDto } from '../dtos/cotizacion.dto';
 
 export interface AutoInsuranceData extends BirthDateParts {
 	identificador?: number;
 	tarea?: string;
+	cotizacion?: CotizacionResponseDto;
 	tipoFlujo?: 'MATRICULA' | 'MANUAL';
 	vehiculo?: BusquedaVehiculo;
 	marcaSeleccionada?: Marca;
@@ -71,6 +73,7 @@ export interface AutoInsuranceData extends BirthDateParts {
 	privacidadAceptada?: boolean;
 	modalidadSeleccionada?: Modalidad;
 	coberturasOpcionalesSeleccionadas?: string[];
+	coberturasOpcionalesPorEscenario?: Record<string, string[]>;
 	quiereSegundoConductor?: boolean;
 	datosTomador?: DatosPersona;
 	ultimosDigitosPoliza?: string;

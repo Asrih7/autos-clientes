@@ -1,9 +1,10 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { COBERTURAS_OPCIONALES_MOCK } from '../mocks/coberturas-opcionales.mock';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { CoberturaOpcional } from '../models/cobertura-opcional.model';
+import { InsuranceStateService } from '../store/insurance-state.service';
 
 @Injectable({ providedIn: 'root' })
 export class P18CoberturasOpcionalesService {
+	private readonly state = inject(InsuranceStateService);
 	private readonly _coberturas = signal<CoberturaOpcional[]>([]);
 	private readonly _seleccionadas = signal<string[]>([]);
 	private readonly _cargado = signal(false);
@@ -16,9 +17,12 @@ export class P18CoberturasOpcionalesService {
 	);
 
 	cargarCoberturas(codigosSeleccionados: string[] = []): void {
-		// Fuente temporal: sustituir por la respuesta de coberturas opcionales de BO.
-		this._coberturas.set(COBERTURAS_OPCIONALES_MOCK.map((cobertura) => ({ ...cobertura })));
-		this._seleccionadas.set(codigosSeleccionados);
+		const escenario = this.state.formData().cotizacion?.escenarios.find((item) => item.codigo === this.state.formData().modalidadSeleccionada?.codigo);
+		const coberturas = (escenario?.coberturasOpcionales ?? []).map((cobertura) => ({ codigo: cobertura.codigo, descripcion: cobertura.descripcion, codigoRelacion: cobertura.codigoRelacion, precio: 0, detalle: '' }));
+		this._coberturas.set(coberturas);
+		this._seleccionadas.set(codigosSeleccionados.length ? codigosSeleccionados : coberturas.filter((cobertura) =>
+			escenario?.coberturasOpcionales.some((item) => item.codigo === cobertura.codigo && item.contratada)
+		).map((cobertura) => cobertura.codigo));
 		this._cargado.set(true);
 	}
 

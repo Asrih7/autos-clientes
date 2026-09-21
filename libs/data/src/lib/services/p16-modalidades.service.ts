@@ -1,9 +1,11 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
 import { GrupoModalidades, Modalidad } from '../models/modalidades.model';
-import { MODALIDADES_MOCK } from '../mocks/modalidades.mock';
+import { CotizacionService } from './cotizacion.service';
 
 @Injectable({ providedIn: 'root' })
 export class P16ModalidadesService {
+	private readonly cotizacionService = inject(CotizacionService);
 	private readonly _modalidades = signal<Modalidad[]>([]);
 	private readonly _modalidadesSeleccionadas = signal<Record<string, string>>({});
 	private readonly _cargado = signal(false);
@@ -18,7 +20,7 @@ export class P16ModalidadesService {
 				codigo: codigoGrupo,
 				descripcion: modalidad.agrupacion.descripcion,
 				modalidades: [],
-				esTodoRiesgo: codigoGrupo === 'TODO_RIESGO'
+				esTodoRiesgo: codigoGrupo === 'TODO_RIESGO' || codigoGrupo === 'TODORIESGO'
 			};
 			grupo.modalidades.push(modalidad);
 			agrupaciones.set(codigoGrupo, grupo);
@@ -30,9 +32,21 @@ export class P16ModalidadesService {
 	});
 	readonly sinPrecios = computed(() => this._cargado() && this.grupos().length === 0);
 
-	cargarModalidades(): void {
+	cargarModalidades(): Observable<void> {
+		return this.cotizacionService.cotizar().pipe(
+			map((respuesta) => respuesta.escenarios.map((escenario): Modalidad => ({
+				codigo: escenario.codigo, descripcion: escenario.descripcion, orden: escenario.orden,
+				agrupacion: escenario.agrupacion, primaTotal: escenario.primaTotal, primerRecibo: escenario.primerRecibo,
+				restoRecibos: escenario.restoRecibos, franquicia: escenario.franquicia,
+				coberturasIncluidas: escenario.coberturasObligatorias, coberturasOpcionales: escenario.coberturasOpcionales,
+				derogacion: escenario.derogacion
+			}))),
+			tap((modalidades) => this.establecerModalidades(modalidades)),
+			map(() => undefined)
+		);
+		/*
 		// Fuente temporal: sustituir por la respuesta del servicio de tarificación cuando esté disponible.
-		this.establecerModalidades(MODALIDADES_MOCK);
+		*/
 	}
 
 	establecerModalidades(modalidades: Modalidad[]): void {
