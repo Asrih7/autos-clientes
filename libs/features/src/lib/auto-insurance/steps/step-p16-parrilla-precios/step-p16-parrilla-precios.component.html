@@ -1,0 +1,50 @@
+<section class="grid is-multiline justify-content-center w-full mt-large">
+	@for (grupo of grupos(); track grupo.codigo) {
+		@let seleccionada = modalidadSeleccionada(grupo);
+		<div class="col mobile:is-12 tablet:is-6 desktop:is-4 flex">
+			<bal-card class="w-full flex flex-direction-column">
+				<bal-card-content class="flex flex-direction-column align-items-center text-center border-bottom-grey p-large">
+					<h2 class="title text-xx-large m-0">{{ grupo.descripcion }}</h2>
+					<p class="text-xx-large font-weight-bold color-primary m-0">{{ formatearPrecio(seleccionada.primaTotal) }}</p>
+				</bal-card-content>
+
+				<bal-card-content class="flex-1 p-large">
+					<div class="flex flex-direction-column gap-small mb-large">
+						@for (cobertura of seleccionada.coberturasIncluidas; track cobertura.codigo) {
+							<span class="flex align-items-start gap-small">
+								<bal-icon name="check" size="small" class="color-primary"></bal-icon>
+								{{ cobertura.descripcion }}
+							</span>
+						}
+					</div>
+
+					@if (grupo.esTodoRiesgo) {
+						<bal-select label="Franquicia" [value]="seleccionada.codigo" (balChange)="cambiarFranquicia(grupo, $event)">
+							@for (modalidad of grupo.modalidades; track modalidad.codigo) {
+								<bal-select-option [value]="modalidad.codigo" [label]="literalFranquicia(modalidad)">
+									{{ literalFranquicia(modalidad) }}
+								</bal-select-option>
+							}
+						</bal-select>
+					} @else {
+						<div class="flex flex-direction-column gap-small">
+						@for (modalidad of grupo.modalidades.slice(1); track modalidad.codigo; let indice = $index) {
+							<bal-checkbox
+								[checked]="modalidadEstaSeleccionada(grupo, modalidad)"
+								[disabled]="debeDeshabilitar(grupo, indice + 1)"
+								(balChange)="cambiarModalidad(grupo, modalidad)"
+							>
+								{{ modalidad.descripcion }}
+							</bal-checkbox>
+						}
+						</div>
+					}
+				</bal-card-content>
+
+				<bal-card-content class="p-large pt-none">
+					<bal-button color="primary" expanded="true" (click)="contratar(grupo)">Contratar</bal-button>
+				</bal-card-content>
+			</bal-card>
+		</div>
+	}
+</section>

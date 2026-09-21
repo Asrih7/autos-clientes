@@ -1,0 +1,43 @@
+<section
+	class="flex flex-direction-column w-full px-xx-large py-x-large"
+	*transloco="let t; prefix: 'tarificacion.p20'"
+>
+	<div class="flex flex-direction-column align-items-center text-center mb-xx-large">
+		<bal-heading level="h1" space="none" class="title text-xx-large">{{ t('title') }}</bal-heading>
+		<p class="text-large m-0 mt-small">{{ t('subtitle') }}</p>
+	</div>
+
+	<lib-vehicle-price-summary
+		class="mb-x-large"
+		[vehicleTitle]="tituloVehiculo()"
+		[vehicleDetail]="detalleVehiculo()"
+		[registrationLabel]="t('registration')"
+		[registration]="state.formData().matricula ?? ''"
+		[modality]="modalidad()?.agrupacion?.descripcion ?? t('modality')"
+		[amount]="modalidad()?.primaTotal ?? 0"
+	></lib-vehicle-price-summary>
+
+	<div class="flex align-items-center w-full border-bottom-grey pb-normal mb-x-large">
+		<bal-button square="true" color="info" icon="nav-go-left" (click)="volver()"></bal-button>
+		<bal-heading level="h2" visualLevel="h3" space="none" class="ml-normal">{{ t('form_title') }}</bal-heading>
+	</div>
+
+	<div class="flex flex-direction-column mobile:w-full tablet:w-8 desktop:w-6 align-self-center gap-large">
+		<lib-datos-persona
+			[datos]="datos()"
+			[camposVisibles]="camposVisibles"
+			[camposBloqueados]="camposBloqueados"
+			[mostrarErrores]="mostrarErrores()"
+			(datosChange)="actualizarDatos($event)"
+			(validezChange)="formularioValido.set($event)"
+		></lib-datos-persona>
+
+		@if (finalizado()) {
+			<bal-notification color="success" class="w-full">{{ t('success') }}</bal-notification>
+		}
+
+		<div class="flex justify-content-center">
+			<bal-button color="primary" (click)="finalizar()">{{ t('finish') }}</bal-button>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,46 @@
+<div class="flex align-items-center flex-direction-column mt-large gap-normal"
+    *transloco="let t; prefix: 'tarificacion.step6'">
+    @if(allVersions().length > 0) {
+    <div class="grid is-vcentered is-centered w-full">
+        <div class="col is-4">
+            <bal-input [placeholder]="t('placeholder_filtro')" type="text" [value]="filterValue()"
+                (balInput)="onInputUpdate($event)"></bal-input>
+        </div>
+        <div class="col is-1">
+            <bal-button color="secondary" (click)="this.applyFilter()">{{ t('boton_buscar') }}</bal-button>
+        </div>
+    </div>
+
+    <table class="table w-full is-striped is-hoverable p-none">
+        <thead>
+            <tr>
+                <th>{{ t('titulos_tabla.marca') }}</th>
+                <th>{{ t('titulos_tabla.modelo') }}</th>
+                <th>{{ t('titulos_tabla.version') }}</th>
+                <th>{{ t('titulos_tabla.cilindrada') }}</th>
+                <th>{{ t('titulos_tabla.potencia') }}</th>
+                <th>{{ t('titulos_tabla.puertas') }}</th>
+                <th>{{ t('titulos_tabla.fabricacion') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(version of versions(); track version.version.id){
+            <tr (click)="this.onClickVersion(version)"
+                [class.selected-row]="selectedVersionId() === version.version.id">
+                <td>{{ version.marca.nombre }}</td>
+                <td>{{ version.modelo.nombre }}</td>
+                <td>{{ version.version.nombre }}</td>
+                <td>{{ version.cilindradaCc }}cc</td>
+                <td>{{ version.potenciaCv }}CV</td>
+                <td>{{ version.numeroPuertas }} puertas</td>
+                <td>{{ version.anioLanzamiento }}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <bal-button color="primary" [disabled]="!this.navigation.canGoForward()" (click)="this.navigation.next()">
+        {{ t('boton_siguiente') }}
+    </bal-button>
+    }
+</div>
