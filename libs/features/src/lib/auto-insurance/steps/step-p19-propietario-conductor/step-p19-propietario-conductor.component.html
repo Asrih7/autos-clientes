@@ -1,0 +1,93 @@
+<section
+	class="flex flex-direction-column w-full px-xx-large py-x-large"
+	*transloco="let t; prefix: 'tarificacion.p19'"
+>
+	<div class="flex flex-direction-column align-items-center text-center mb-xx-large">
+		<bal-heading level="h1" space="none" class="title text-xx-large">{{ t('title') }}</bal-heading>
+		<p class="text-large m-0 mt-small">{{ t('subtitle') }}</p>
+	</div>
+
+	<lib-vehicle-price-summary
+		class="mb-x-large"
+		[vehicleTitle]="tituloVehiculo()"
+		[vehicleDetail]="detalleVehiculo()"
+		[registrationLabel]="t('registration')"
+		[registration]="state.formData().matricula ?? ''"
+		[modality]="modalidad()?.agrupacion?.descripcion ?? t('modality')"
+		[amount]="modalidad()?.primaTotal ?? 0"
+	></lib-vehicle-price-summary>
+
+	<div class="flex align-items-center w-full border-bottom-grey pb-normal mb-x-large">
+		<bal-button square="true" color="info" icon="nav-go-left" (click)="volver()"></bal-button>
+		<bal-heading level="h2" visualLevel="h3" space="none" class="ml-normal">{{ t('form_title') }}</bal-heading>
+		<bal-button
+			class="ml-auto"
+			square="true"
+			color="info"
+			icon="nav-go-right"
+			[disabled]="!puedeContinuar()"
+			(click)="continuar()"
+		></bal-button>
+	</div>
+
+	<div class="flex flex-direction-column mobile:w-full tablet:w-8 desktop:w-6 align-self-center gap-x-large">
+		<section class="flex flex-direction-column gap-large" aria-labelledby="tomador-conductor-principal">
+			<bal-heading id="tomador-conductor-principal" level="h3" visualLevel="h4" space="none">
+				{{ t('conductor_question') }}
+			</bal-heading>
+			<div class="flex justify-content-center gap-normal w-full">
+				<bal-button
+					class="w-20rem"
+					[expanded]="true"
+					[color]="esTomadorConductorPrincipal() === false ? 'primary' : 'info'"
+					[outlined]="esTomadorConductorPrincipal() !== false"
+					[attr.aria-pressed]="esTomadorConductorPrincipal() === false"
+					(click)="seleccionarTomadorConductorPrincipal(false)"
+				>
+					{{ t('no') }}
+				</bal-button>
+				<bal-button
+					class="w-20rem"
+					[expanded]="true"
+					[color]="esTomadorConductorPrincipal() === true ? 'primary' : 'info'"
+					[outlined]="esTomadorConductorPrincipal() !== true"
+					[attr.aria-pressed]="esTomadorConductorPrincipal() === true"
+					(click)="seleccionarTomadorConductorPrincipal(true)"
+				>
+					{{ t('yes') }}
+				</bal-button>
+			</div>
+		</section>
+
+		<section
+			class="flex flex-direction-column gap-large border-top-grey pt-x-large"
+			aria-labelledby="tomador-propietario"
+		>
+			<bal-heading id="tomador-propietario" level="h3" visualLevel="h4" space="none">
+				{{ t('owner_question') }}
+			</bal-heading>
+			<div class="flex justify-content-center gap-normal w-full">
+				<bal-button
+					class="w-20rem"
+					[expanded]="true"
+					[color]="esTomadorPropietarioVehiculo() === false ? 'primary' : 'info'"
+					[outlined]="esTomadorPropietarioVehiculo() !== false"
+					[attr.aria-pressed]="esTomadorPropietarioVehiculo() === false"
+					(click)="seleccionarTomadorPropietarioVehiculo(false)"
+				>
+					{{ t('no') }}
+				</bal-button>
+				<bal-button
+					class="w-20rem"
+					[expanded]="true"
+					[color]="esTomadorPropietarioVehiculo() === true ? 'primary' : 'info'"
+					[outlined]="esTomadorPropietarioVehiculo() !== true"
+					[attr.aria-pressed]="esTomadorPropietarioVehiculo() === true"
+					(click)="seleccionarTomadorPropietarioVehiculo(true)"
+				>
+					{{ t('yes') }}
+				</bal-button>
+			</div>
+		</section>
+	</div>
+</section>
