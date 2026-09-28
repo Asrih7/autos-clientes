@@ -1,0 +1,17 @@
+<bal-card class="summary-card w-full">
+	<bal-card-content class="summary-card__content grid is-multiline p-none">
+		<div class="summary-card__vehicle col mobile:is-12 tablet:is-8 p-large">
+			<p class="text-large font-weight-bold text-uppercase m-0">{{ vehicleTitle() }}</p>
+			@if (vehicleDetail()) {
+				<p class="m-0">{{ vehicleDetail() }}</p>
+			}
+			@if (registration()) {
+				<p class="m-0">{{ registrationLabel() }}{{ registrationLabel() ? ': ' : '' }}{{ registration() }}</p>
+			}
+		</div>
+		<div class="summary-card__amount col mobile:is-12 tablet:is-4 bg-grey-light flex flex-direction-column align-items-center justify-content-center p-large">
+			<span class="text-large">{{ modality() }}</span>
+			<span class="text-xx-large font-weight-bold color-primary">{{ amount() | number: '1.2-2' }} €</span>
+		</div>
+	</bal-card-content>
+</bal-card>
