@@ -1,0 +1,33 @@
+<div class="position-relative w-full h-full mt-large" *transloco="let t; prefix: 'tarificacion.step3'">
+	
+	@if (errorMsg()) {
+		<div class="flex justify-content-center w-full mb-medium">
+			<span class="text-hint text-medium font-weight-bold color-danger">{{ t(errorMsg() ?? '') }}</span>
+		</div>
+	}
+
+	@if (modelosGrid().length > 0) {
+		<lib-grid-tarjetas 
+			[elementos]="modelosGrid()"
+			[idSeleccionado]="modeloSeleccionado()?.id"
+			(elementoClick)="onCardClick($event)">
+		</lib-grid-tarjetas>
+	}
+
+	@if (modelosSelect().length > 0) {
+		<div class="flex flex-direction-column w-full bg-grey-light p-large border-radius-normal mt-medium">
+			<span class="text-medium font-weight-bold color-grey-dark mb-x-small">{{ t('otros_modelos') }}</span>
+			
+			<bal-select 
+				placeholder="{{ t('placeholder_select') }}"
+				[value]="modeloSeleccionado()?.id ?? ''"
+				(balChange)="onSelectUpdate($event)">
+				@for (modelo of modelosSelect(); track modelo.id) {
+					<bal-select-option [value]="modelo.id" [label]="modelo.nombre">
+						{{ modelo.nombre }}
+					</bal-select-option>
+				}
+			</bal-select>
+		</div>
+	}
+</div>

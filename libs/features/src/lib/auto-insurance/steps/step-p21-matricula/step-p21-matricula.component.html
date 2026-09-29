@@ -1,0 +1,27 @@
+<section class="flex flex-direction-column w-full px-xx-large py-x-large" *transloco="let t; prefix: 'tarificacion.p21'">
+	<lib-vehicle-price-summary class="mb-x-large" [vehicleTitle]="tituloVehiculo()" [vehicleDetail]="detalleVehiculo()" [registrationLabel]="t('registration')" [registration]="matricula()" [modality]="modalidad()?.agrupacion?.descripcion ?? t('modality')" [amount]="precio()"></lib-vehicle-price-summary>
+
+	<div class="flex align-items-center w-full border-bottom-grey pb-normal mb-xx-large">
+		<bal-button square="true" color="info" icon="nav-go-left" (click)="volver()"></bal-button>
+		<h2 class="title text-x-large m-0 ml-normal">{{ t('form_title') }}</h2>
+		<bal-button class="ml-auto" square="true" color="info" icon="nav-go-right" [disabled]="recalculando()" (click)="continuar()"></bal-button>
+	</div>
+
+	<div class="flex flex-direction-column align-items-center w-full">
+		<div class="w-full tablet:w-6">
+			<bal-field required="true" [invalid]="matriculaInvalida()">
+				<bal-field-label htmlFor="matricula" required="true">{{ t('registration') }}</bal-field-label>
+				<bal-field-control><bal-input id="matricula" type="text" [value]="matricula()" [invalid]="matriculaInvalida()" [placeholder]="t('registration_placeholder')" (balInput)="actualizarMatricula($event)"></bal-input></bal-field-control>
+				@if (matriculaInvalida()) { <bal-field-message invalid="true">{{ t('required') }}</bal-field-message> }
+			</bal-field>
+
+			<bal-field required="true" [invalid]="fechaInvalida()">
+				<bal-field-label htmlFor="fecha-matricula" required="true">{{ t('date_label') }}</bal-field-label>
+				<bal-field-control><bal-date id="fecha-matricula" required="true" triggerIcon="calendar" [value]="fechaMatriculacion()" [invalid]="fechaInvalida()" (balChange)="actualizarFecha($event)"></bal-date></bal-field-control>
+				@if (fechaInvalida()) { <bal-field-message invalid="true">{{ t('date_invalid') }}</bal-field-message> }
+			</bal-field>
+		</div>
+	</div>
+
+	<div class="flex justify-content-center mt-x-large"><bal-button color="primary" [disabled]="recalculando() || matriculaInvalida() || fechaInvalida()" (click)="continuar()">{{ literalBoton() }}</bal-button></div>
+</section>
