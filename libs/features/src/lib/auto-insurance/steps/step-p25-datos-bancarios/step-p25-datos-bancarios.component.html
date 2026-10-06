@@ -1,0 +1,110 @@
+<section
+	class="flex flex-direction-column w-full px-xx-large py-x-large"
+	*transloco="let t; prefix: 'tarificacion.p25'"
+>
+	<div class="flex flex-direction-column align-items-center text-center mb-xx-large">
+		<bal-heading level="h1" space="none" class="title text-xx-large">{{ t('title') }}</bal-heading>
+		<p class="text-large m-0 mt-small">{{ t('subtitle') }}</p>
+	</div>
+
+	<lib-vehicle-price-summary
+		class="mb-x-large"
+		[vehicleTitle]="tituloVehiculo()"
+		[vehicleDetail]="detalleVehiculo()"
+		[registrationLabel]="t('registration')"
+		[registration]="state.formData().matricula ?? ''"
+		[modality]="modalidad()?.descripcion ?? t('modality')"
+		[amount]="modalidad()?.primaTotal ?? 0"
+	></lib-vehicle-price-summary>
+
+	<div class="flex align-items-center w-full border-bottom-grey pb-normal mb-x-large">
+		<bal-button square="true" color="info" icon="nav-go-left" (click)="volver()"></bal-button>
+		<div class="flex align-items-center gap-small ml-normal">
+			<bal-heading level="h2" visualLevel="h3" space="none">{{ t('form_title') }}</bal-heading
+			><bal-icon id="p25-tooltip" name="info-circle" size="medium"></bal-icon
+			><bal-tooltip reference="p25-tooltip">{{ t('tooltip') }}</bal-tooltip>
+		</div>
+	</div>
+
+	<bal-notification color="info" noIcon="true" class="w-full mb-x-large">
+		<div class="grid is-multiline">
+			<div class="col mobile:is-12 tablet:is-8">
+				<bal-heading level="h3" space="none">{{ t('fractioned_payment_title') }}</bal-heading>
+				<p class="m-0">{{ t('fractioned_payment_body') }}</p>
+			</div>
+			<div class="col mobile:is-12 tablet:is-4 flex justify-content-end align-items-start">
+				<bal-button color="info" outlined="true">{{ t('fractioned_payment_button') }}</bal-button>
+			</div>
+		</div>
+	</bal-notification>
+
+	<div class="flex flex-direction-column mobile:w-full tablet:w-8 desktop:w-6 align-self-center gap-large">
+		<bal-field required="true" [invalid]="fechaInvalida()"
+			><bal-field-label htmlFor="fecha-efecto" required="true">{{ t('effective_date') }}</bal-field-label
+			><bal-field-control
+				><bal-date
+					id="fecha-efecto"
+					required="true"
+					triggerIcon="calendar"
+					[value]="fechaEfecto()"
+					[invalid]="fechaInvalida()"
+					(balChange)="actualizarFecha($event)"
+				></bal-date
+			></bal-field-control>
+			@if (fechaInvalida()) {
+				<bal-field-message invalid="true">{{ t('required') }}</bal-field-message>
+			}
+		</bal-field>
+
+		<bal-field required="true" [invalid]="titularInvalido()"
+			><bal-field-label htmlFor="titular" required="true">{{ t('account_holder') }}</bal-field-label
+			><bal-field-control
+				><bal-input
+					id="titular"
+					type="text"
+					[value]="titular()"
+					[invalid]="titularInvalido()"
+					(balInput)="actualizarTitular($event)"
+				></bal-input
+			></bal-field-control>
+			@if (titularInvalido()) {
+				<bal-field-message invalid="true">{{ t('required') }}</bal-field-message>
+			}
+		</bal-field>
+		<bal-field required="true" [invalid]="ibanInvalido()"
+			><bal-field-label htmlFor="iban" required="true">{{ t('iban') }}</bal-field-label
+			><bal-field-control
+				><bal-input
+					id="iban"
+					type="text"
+					inputmode="text"
+					maxlength="24"
+					[value]="iban()"
+					[invalid]="ibanInvalido()"
+					placeholder="ES00 0000 0000 0000 0000 0000"
+					(balInput)="actualizarIban($event)"
+				></bal-input
+			></bal-field-control>
+			@if (ibanInvalido()) {
+				<bal-field-message invalid="true">{{ t('iban_invalid') }}</bal-field-message>
+			}
+		</bal-field>
+
+		<bal-checkbox
+			[checked]="informacionContractualAceptada()"
+			[invalid]="contractualInvalida()"
+			(balChange)="actualizarInformacionContractual($event)"
+			>{{ t('contractual_information') }}</bal-checkbox
+		>
+		@if (contractualInvalida()) {
+			<bal-field-message invalid="true">{{ t('required') }}</bal-field-message>
+		}
+
+		@if (contratado()) {
+			<bal-notification color="success" class="w-full">{{ t('contracted') }}</bal-notification>
+		}
+		<div class="flex justify-content-center">
+			<bal-button color="primary" (click)="contratar()">{{ t('contract') }}</bal-button>
+		</div>
+	</div>
+</section>

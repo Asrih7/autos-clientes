@@ -1,0 +1,41 @@
+:host {
+	display: block;
+	width: 100%;
+	padding: 0 1rem;
+	box-sizing: border-box;
+}
+
+.no-price-notice {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	width: 100%;
+	min-height: 7.625rem;
+	margin-top: 1rem;
+	padding: 1.25rem 2rem;
+	box-sizing: border-box;
+	border-left: 0.375rem solid var(--p-yellow-4, #ffcb00);
+	background: var(--p-yellow-1, #fff0bf);
+	color: var(--p-grey-6, #333);
+	text-align: center;
+
+	.warning-icon {
+		width: 2rem;
+		height: 1.75rem;
+		color: var(--p-grey-6, #333);
+	}
+
+	p {
+		max-width: 44rem;
+		margin: 0;
+		font-size: 0.875rem;
+		line-height: 1.45;
+
+		strong {
+			font-family: inherit;
+			font-weight: 700;
+		}
+	}
+}
