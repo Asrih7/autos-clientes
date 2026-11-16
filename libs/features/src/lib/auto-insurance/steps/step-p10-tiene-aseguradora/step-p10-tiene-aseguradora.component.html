@@ -1,0 +1,24 @@
+<div class="flex flex-direction-column align-items-center justify-content-center w-full py-xx-large gap-large">
+	<div class="flex justify-content-center gap-normal w-max">
+		<bal-button
+			class="w-20rem"
+			[expanded]="true"
+			[color]="respuestaSeleccionada() === true ? 'primary' : 'info'"
+			[outlined]="respuestaSeleccionada() !== true"
+			(click)="seleccionarRespuesta(true)"
+		>
+			Sí
+		</bal-button>
+
+		<bal-button
+			class="w-20rem"
+			[expanded]="true"
+			[color]="respuestaSeleccionada() === false ? 'primary' : 'info'"
+			[outlined]="respuestaSeleccionada() !== false"
+			(click)="seleccionarRespuesta(false)"
+		>
+			No
+		</bal-button>
+	</div>
+
+</div>

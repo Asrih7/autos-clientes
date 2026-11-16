@@ -1,0 +1,211 @@
+<section class="resumen w-full" *transloco="let t; prefix: 'tarificacion.resumen'">
+	<header class="resumen__hero bg-primary-1 p-x-large mb-x-large">
+		<div class="resumen__hero-icon color-primary" aria-hidden="true">
+			<bal-icon name="check-circle" size="large"></bal-icon>
+		</div>
+		<div>
+			<p class="font-weight-bold color-primary m-0 mb-x-small">{{ t('eyebrow') }}</p>
+			<bal-heading level="h1" space="none" class="title text-xx-large">
+				{{ nombre() ? t('greeting_named', { name: nombre() }) : t('greeting') }}
+			</bal-heading>
+			<p class="text-large m-0 mt-small">{{ t('intro') }}</p>
+		</div>
+	</header>
+
+	<bal-notification color="info" class="w-full mb-x-large">
+		<strong>{{ t('status_title') }}</strong>
+		<p class="m-0">{{ t('status_body') }}</p>
+	</bal-notification>
+
+	@if (modalidad(); as seleccionada) {
+		<lib-vehicle-price-summary
+			class="mb-x-large"
+			[vehicleTitle]="vehiculo().titulo || t('vehicle_unavailable')"
+			[vehicleDetail]="vehiculo().detalle"
+			[registrationLabel]="t('registration')"
+			[registration]="vehiculoSlice().matricula ?? ''"
+			[modality]="seleccionada.descripcion"
+			[amount]="seleccionada.primaTotal"
+		></lib-vehicle-price-summary>
+	}
+
+	<div class="grid is-multiline align-items-stretch">
+		<div class="col mobile:is-12 desktop:is-7 flex">
+			<bal-card class="w-full h-full">
+				<bal-card-content class="p-large">
+					<bal-heading level="h2" visualLevel="h3" space="none" class="mb-large">{{
+						t('insurance_title')
+					}}</bal-heading>
+					<bal-data>
+						<bal-data-item>
+							<bal-data-label>{{ t('policy_number') }}</bal-data-label>
+							<bal-data-value>{{ t('pending_issuance') }}</bal-data-value>
+						</bal-data-item>
+						@if (modalidad(); as seleccionada) {
+							<bal-data-item>
+								<bal-data-label>{{ t('quoted_amount') }}</bal-data-label>
+								<bal-data-value>{{ seleccionada.primaTotal | number: '1.2-2' }} €</bal-data-value>
+							</bal-data-item>
+						}
+						<bal-data-item>
+							<bal-data-label>{{ t('start_date') }}</bal-data-label>
+							<bal-data-value>{{ fechaInicio() || t('unavailable') }}</bal-data-value>
+						</bal-data-item>
+						<bal-data-item>
+							<bal-data-label>{{ t('renewal_date') }}</bal-data-label>
+							<bal-data-value>{{ t('pending_issuance') }}</bal-data-value>
+						</bal-data-item>
+						<bal-data-item>
+							<bal-data-label>{{ t('bank_account') }}</bal-data-label>
+							<bal-data-value>{{ cuenta() || t('unavailable') }}</bal-data-value>
+						</bal-data-item>
+						<bal-data-item>
+							<bal-data-label>{{ t('email') }}</bal-data-label>
+							<bal-data-value multiline="true">{{ email() || t('unavailable') }}</bal-data-value>
+						</bal-data-item>
+						<bal-data-item>
+							<bal-data-label>{{ t('phone') }}</bal-data-label>
+							<bal-data-value>{{ telefono() || t('unavailable') }}</bal-data-value>
+						</bal-data-item>
+					</bal-data>
+				</bal-card-content>
+			</bal-card>
+		</div>
+		<div class="col mobile:is-12 desktop:is-5 flex">
+			<bal-card class="w-full h-full">
+				<bal-card-content class="p-large">
+					<bal-heading level="h2" visualLevel="h3" space="none" class="mb-small">{{
+						t('next_steps_title')
+					}}</bal-heading>
+					<p class="m-0 mb-large">{{ t('next_steps_intro') }}</p>
+					<ul class="resumen__steps">
+						<li class="flex align-items-start gap-small mb-normal">
+							<bal-icon name="document" size="small" class="color-primary" aria-hidden="true"></bal-icon>
+							<span>{{ t('registration_document') }}</span>
+						</li>
+						<li class="flex align-items-start gap-small mb-normal">
+							<bal-icon name="document" size="small" class="color-primary" aria-hidden="true"></bal-icon>
+							<span>{{ t('driving_licenses') }}</span>
+						</li>
+					</ul>
+					<p class="m-0 mb-small">{{ t('email_intro') }}</p>
+					<a class="resumen__email color-primary font-weight-bold" href="mailto:produccion_auto@caser.es">
+						produccion_auto&#64;caser.es
+					</a>
+					<p class="text-small m-0 mt-small">{{ t('policy_subject_note') }}</p>
+					<p class="m-0 mt-large">{{ t('documents_note') }}</p>
+				</bal-card-content>
+			</bal-card>
+		</div>
+	</div>
+
+	<bal-card class="w-full mt-large">
+		<bal-card-content class="p-large">
+			<bal-heading level="h2" visualLevel="h3" space="none" class="mb-large">{{ t('coverages_title') }}</bal-heading>
+			<div class="grid is-multiline">
+				<div class="col mobile:is-12 tablet:is-6">
+					<h3 class="title text-large m-0 mb-normal">{{ t('included_coverages') }}</h3>
+					<ul class="resumen__coverages">
+						@for (cobertura of coberturasIncluidas(); track cobertura.codigo) {
+							<li class="flex align-items-start gap-small mb-small">
+								<bal-icon name="check" size="small" class="color-primary" aria-hidden="true"></bal-icon>
+								<span>{{ cobertura.descripcion }}</span>
+							</li>
+						} @empty {
+							<li>{{ t('no_coverages') }}</li>
+						}
+					</ul>
+				</div>
+				<div class="col mobile:is-12 tablet:is-6">
+					<h3 class="title text-large m-0 mb-normal">{{ t('optional_coverages') }}</h3>
+					<ul class="resumen__coverages">
+						@for (cobertura of coberturasOpcionales(); track cobertura.codigo) {
+							<li class="flex align-items-start gap-small mb-small">
+								<bal-icon name="check" size="small" class="color-primary" aria-hidden="true"></bal-icon>
+								<span>{{ cobertura.descripcion }}</span>
+							</li>
+						} @empty {
+							<li>{{ t('no_optional_coverages') }}</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</bal-card-content>
+	</bal-card>
+
+	<div class="grid is-multiline align-items-stretch mt-large">
+		<div class="col mobile:is-12 desktop:is-7 flex">
+			<bal-card class="w-full h-full">
+				<bal-card-content class="p-large">
+					<bal-heading level="h2" visualLevel="h3" space="none" class="mb-large">{{
+						t('participants_title')
+					}}</bal-heading>
+					@for (persona of intervinientes(); track persona.rol; let last = $last) {
+						<div class="resumen__person" [class.border-bottom-grey]="!last">
+							<h3 class="title text-large m-0 mb-small">{{ t('roles.' + persona.rol) }}</h3>
+							@if (persona.esTomador) {
+								<p class="m-0">{{ t('same_policyholder') }}</p>
+							} @else {
+								<bal-data>
+									<bal-data-item>
+										<bal-data-label>{{ t('full_name') }}</bal-data-label>
+										<bal-data-value multiline="true">{{ persona.nombre || t('unavailable') }}</bal-data-value>
+									</bal-data-item>
+									<bal-data-item>
+										<bal-data-label>{{ t('document_id') }}</bal-data-label>
+										<bal-data-value>{{ persona.documento || t('unavailable') }}</bal-data-value>
+									</bal-data-item>
+									<bal-data-item>
+										<bal-data-label>{{ t('birth_date') }}</bal-data-label>
+										<bal-data-value>{{ persona.fechaNacimiento || t('unavailable') }}</bal-data-value>
+									</bal-data-item>
+									<bal-data-item>
+										<bal-data-label>{{ t('license_date') }}</bal-data-label>
+										<bal-data-value>{{ persona.fechaCarnet || t('unavailable') }}</bal-data-value>
+									</bal-data-item>
+								</bal-data>
+							}
+						</div>
+					}
+				</bal-card-content>
+			</bal-card>
+		</div>
+		<div class="col mobile:is-12 desktop:is-5 flex">
+			<bal-card class="w-full h-full">
+				<bal-card-content class="p-large">
+					<bal-heading level="h2" visualLevel="h3" space="none" class="mb-large">{{ t('vehicle_title') }}</bal-heading>
+					<bal-data>
+						<bal-data-item>
+							<bal-data-label>{{ t('brand') }}</bal-data-label>
+							<bal-data-value>{{ vehiculo().marca || t('unavailable') }}</bal-data-value>
+						</bal-data-item>
+						<bal-data-item>
+							<bal-data-label>{{ t('model') }}</bal-data-label>
+							<bal-data-value>{{ vehiculo().modelo || t('unavailable') }}</bal-data-value>
+						</bal-data-item>
+						@if (vehiculo().version) {
+							<bal-data-item>
+								<bal-data-label>{{ t('version') }}</bal-data-label>
+								<bal-data-value multiline="true">{{ vehiculo().version }}</bal-data-value>
+							</bal-data-item>
+						}
+						@if (vehiculo().puertas) {
+							<bal-data-item>
+								<bal-data-label>{{ t('doors') }}</bal-data-label>
+								<bal-data-value>{{ vehiculo().puertas }}</bal-data-value>
+							</bal-data-item>
+						}
+						<bal-data-item>
+							<bal-data-label>{{ t('registration') }}</bal-data-label>
+							<bal-data-value>{{ vehiculoSlice().matricula || t('unavailable') }}</bal-data-value>
+						</bal-data-item>
+					</bal-data>
+				</bal-card-content>
+			</bal-card>
+		</div>
+	</div>
+
+	<div class="flex justify-content-center mt-x-large">
+		<bal-button color="info" outlined="true" (click)="volver()">{{ t('review_details') }}</bal-button>
+	</div>
+</section>

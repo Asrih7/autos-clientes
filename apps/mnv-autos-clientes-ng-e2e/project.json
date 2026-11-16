@@ -1,0 +1,10 @@
+{
+	"name": "mnv-autos-clientes-ng-e2e",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"sourceRoot": "apps/mnv-autos-clientes-ng-e2e/src",
+	"tags": [],
+	"implicitDependencies": ["mnv-autos-clientes-ng"],
+	"// targets": "to see all targets run: nx show project mnv-autos-clientes-ng-e2e --web",
+	"targets": {}
+}
